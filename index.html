@@ -336,23 +336,37 @@
        ========================================================================== -->
   <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-5 bg-gradient-to-b from-[#080B12]/90 to-transparent border-b border-[#C6CBD3]/5">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-      <!-- Brand Identity & Monogram -->
-      <button onclick="navigateTo('home')" class="flex items-center gap-3.5 text-left group cursor-pointer focus:outline-none">
-        <div id="header-monogram" class="w-10 h-10 relative inline-flex items-center justify-center rounded-lg border border-[#B9DDF7]/30 bg-[#101827]/90 text-white shadow-inner transition-all duration-500">
-          <svg viewBox="0 0 48 48" fill="none" class="w-3/5 h-3/5" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 12H26M10 24H22M10 36H26M10 12V36" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" />
-            <path id="header-monogram-accent" d="M26 12H38M26 24H35M26 12V36" stroke="#B9DDF7" stroke-width="2.5" stroke-linecap="square" />
-          </svg>
-        </div>
-        <div>
-          <div class="text-sm sm:text-base font-semibold tracking-[0.22em] text-white group-hover:text-[#B9DDF7] transition-colors">
-            ECHO FOREVER
+      <!-- Brand Identity & Monogram with Back Arrow Control -->
+      <div class="flex items-center gap-2.5 sm:gap-3.5">
+        <button
+          id="header-back-btn"
+          onclick="goBack()"
+          style="display: none;"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-[#B9DDF7]/30 text-xs font-mono uppercase tracking-[0.14em] text-[#B9DDF7] hover:text-white hover:border-[#B9DDF7] hover:bg-[#171D29]/90 transition-all cursor-pointer group"
+          title="Return to previous screen (Arrow Back)"
+          aria-label="Return to previous screen"
+        >
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5 transform group-hover:-translate-x-1 transition-transform"></i>
+          <span class="hidden md:inline">Back</span>
+        </button>
+
+        <button onclick="navigateTo('home')" class="flex items-center gap-3.5 text-left group cursor-pointer focus:outline-none">
+          <div id="header-monogram" class="w-10 h-10 relative inline-flex items-center justify-center rounded-lg border border-[#B9DDF7]/30 bg-[#101827]/90 text-white shadow-inner transition-all duration-500">
+            <svg viewBox="0 0 48 48" fill="none" class="w-3/5 h-3/5" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 12H26M10 24H22M10 36H26M10 12V36" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" />
+              <path id="header-monogram-accent" d="M26 12H38M26 24H35M26 12V36" stroke="#B9DDF7" stroke-width="2.5" stroke-linecap="square" />
+            </svg>
           </div>
-          <div class="text-[10px] tracking-[0.18em] text-[#8993A3] uppercase hidden sm:block">
-            Where Culture Meets Capital
+          <div>
+            <div class="text-sm sm:text-base font-semibold tracking-[0.22em] text-white group-hover:text-[#B9DDF7] transition-colors">
+              ECHO FOREVER
+            </div>
+            <div class="text-[10px] tracking-[0.18em] text-[#8993A3] uppercase hidden sm:block">
+              Where Culture Meets Capital
+            </div>
           </div>
-        </div>
-      </button>
+        </button>
+      </div>
 
       <!-- Desktop Navigation Links -->
       <nav id="desktop-nav" class="hidden xl:flex items-center gap-1" aria-label="Primary Navigation">
@@ -843,6 +857,30 @@
     // ==========================================================================
     // 4. VIEW TEMPLATES (ALL 9 PAGES)
     // ==========================================================================
+
+    // Helper to render an on-screen back arrow navigation bar on sub-pages
+    function renderSubpageBackBar(currentTitle = '') {
+      const isFound = state.activePage === 'foundation';
+      const borderClass = isFound
+        ? 'border-[#C7AD7A]/40 text-[#C7AD7A] hover:border-[#C7AD7A] hover:bg-[#C7AD7A]/10'
+        : 'border-white/15 text-[#C6CBD3] hover:text-[#B9DDF7] hover:border-[#B9DDF7]/50 hover:bg-[#101827]';
+      const indicatorClass = isFound ? 'text-[#C7AD7A]' : 'text-[#8993A3]';
+
+      return `
+        <div data-aos="fade-down" class="mb-8 flex items-center justify-between gap-4">
+          <button
+            onclick="goBack()"
+            class="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel ${borderClass} text-xs uppercase tracking-[0.18em] transition-all cursor-pointer shadow-lg hover:shadow-[0_0_20px_rgba(185,221,247,0.15)]"
+            title="Return to previous screen (Arrow Back)"
+            aria-label="Return to previous screen"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4 transform group-hover:-translate-x-1.5 transition-transform duration-300"></i>
+            <span>Back to Previous Screen</span>
+          </button>
+          ${currentTitle ? `<span class="hidden sm:inline text-[11px] font-mono tracking-[0.2em] ${indicatorClass} uppercase">ECHO FOREVER • ${currentTitle}</span>` : ''}
+        </div>
+      `;
+    }
 
     // --- VIEW 1: HOMEPAGE (9 SECTIONS) ---
     function getHomeHTML() {
@@ -1499,7 +1537,8 @@
     function getAboutHTML() {
       return `
         <div class="py-16 lg:py-24">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+            ${renderSubpageBackBar('ABOUT & PHILOSOPHY')}
             <div data-aos="fade-down" class="max-w-4xl">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#B9DDF7] mb-6">
                 <span>ABOUT ECHO FOREVER LLC</span>
@@ -1661,6 +1700,7 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+            ${renderSubpageBackBar('OUR ECOSYSTEM')}
             <div data-aos="fade-down" class="max-w-4xl">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#B9DDF7] mb-6">
                 <span>HOUSE OF BRANDS ARCHITECTURE</span>
@@ -1690,6 +1730,7 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+            ${renderSubpageBackBar('ECHO EXPERIENCES')}
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
               <div data-aos="fade-right" class="lg:col-span-8 space-y-6">
                 <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#B9DDF7]/15 border border-[#B9DDF7]/40 text-xs uppercase tracking-[0.2em] text-[#B9DDF7]">
@@ -1803,6 +1844,7 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+            ${renderSubpageBackBar('ECHO COLLECTIVE')}
             <div data-aos="fade-down" class="max-w-4xl space-y-6">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#78BCEB]">
                 <span>PILLAR 02 • PRIVATE NETWORK & COMMUNITY</span>
@@ -1893,6 +1935,7 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+            ${renderSubpageBackBar('ECHO VENTURES')}
             <div data-aos="fade-down" class="max-w-4xl space-y-6">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#C6CBD3]">
                 <span>PILLAR 03 • VENTURE & PARTNERSHIP PLATFORM</span>
@@ -1990,6 +2033,7 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+            ${renderSubpageBackBar('ECHO JOURNAL')}
             <div data-aos="fade-down" class="max-w-4xl space-y-6">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#B9DDF7]">
                 <span>PILLAR 04 • EDITORIAL & CULTURAL INTELLIGENCE</span>
@@ -2097,6 +2141,7 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+            ${renderSubpageBackBar('ECHO FOUNDATION')}
             <div data-aos="fade-down" class="max-w-4xl space-y-6">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C7AD7A]/15 border border-[#C7AD7A]/40 text-xs uppercase tracking-[0.2em] text-[#C7AD7A]">
                 <span>PILLAR 05 • PHILANTHROPY & SOCIAL IMPACT</span>
@@ -2173,8 +2218,9 @@
       ];
 
       return `
-        <div class="py-6 sm:py-8 lg:py-10 min-h-[calc(100vh-4rem)] flex items-center">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="py-6 sm:py-8 lg:py-10 min-h-[calc(100vh-4rem)] flex flex-col justify-center">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full space-y-6">
+            ${renderSubpageBackBar('COMMUNICATIONS & INQUIRIES')}
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
               <!-- Left Column: Compact Corporate Header & Routing Directory -->
               <div data-aos="fade-right" class="lg:col-span-5 space-y-4 sm:space-y-5">
@@ -2292,6 +2338,21 @@
       const monogramBox = document.getElementById('header-monogram');
       const monogramAccent = document.getElementById('header-monogram-accent');
       const headerCta = document.getElementById('header-cta-btn');
+      const headerBackBtn = document.getElementById('header-back-btn');
+
+      // Header Back Button display & styling
+      if (headerBackBtn) {
+        if (state.activePage !== 'home') {
+          headerBackBtn.style.display = 'inline-flex';
+          if (isFoundationPage) {
+            headerBackBtn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel-gold border border-[#C7AD7A]/40 text-xs font-mono uppercase tracking-[0.14em] text-[#C7AD7A] hover:text-white hover:border-[#C7AD7A] hover:bg-[#171D29]/90 transition-all cursor-pointer group';
+          } else {
+            headerBackBtn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-[#B9DDF7]/30 text-xs font-mono uppercase tracking-[0.14em] text-[#B9DDF7] hover:text-white hover:border-[#B9DDF7] hover:bg-[#171D29]/90 transition-all cursor-pointer group';
+          }
+        } else {
+          headerBackBtn.style.display = 'none';
+        }
+      }
 
       if (monogramBox && monogramAccent) {
         monogramBox.className = `w-10 h-10 relative inline-flex items-center justify-center rounded-lg border transition-all duration-500 shadow-inner ${
@@ -2338,7 +2399,18 @@
       const mobileList = document.getElementById('mobile-nav-list');
       if (mobileList) {
         const homeActive = state.activePage === 'home';
+        const backBtnHTML = state.activePage !== 'home' ? `
+          <button
+            onclick="goBack()"
+            class="w-full flex items-center gap-2.5 py-3 px-4 rounded-xl text-left border border-[#B9DDF7]/30 bg-[#101827]/90 text-[#B9DDF7] hover:text-white transition-all cursor-pointer mb-3"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span class="text-xs font-mono uppercase tracking-[0.18em]">Return to Previous Screen</span>
+          </button>
+        ` : '';
+
         mobileList.innerHTML = `
+          ${backBtnHTML}
           <div class="text-[11px] uppercase tracking-[0.24em] text-[#8993A3] mb-4">Institutional Directory</div>
           <button
             onclick="navigateTo('home')"
@@ -2372,18 +2444,119 @@
       }
     }
 
+    let navigationHistory = [];
+
     function navigateTo(page, options = {}) {
+      const isBack = options.isBack || false;
+      const pushHistory = options.pushHistory !== false;
+
       if (options.inquiryCategory) {
         state.inquiryCategory = options.inquiryCategory;
       }
+
+      // Record navigation history stack for in-app fallback
+      if (!isBack && state.activePage !== page) {
+        navigationHistory.push({
+          page: state.activePage,
+          inquiryCategory: state.inquiryCategory
+        });
+      }
+
       state.activePage = page;
       state.mobileMenuOpen = false;
 
       const overlay = document.getElementById('mobile-menu-overlay');
       if (overlay) overlay.classList.add('hidden');
 
+      // Sync browser history & URL hash so browser arrow back / forward buttons work seamlessly
+      if (pushHistory) {
+        const newHash = page === 'home' ? '' : `#${page}`;
+        if (window.location.hash !== newHash) {
+          const newUrl = newHash ? `${window.location.pathname}${newHash}` : window.location.pathname;
+          window.history.pushState({ page, inquiryCategory: state.inquiryCategory }, '', newUrl);
+        }
+      }
+
       renderApp();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goBack() {
+      // 1. If any modal is open, close it first
+      const modalRoot = document.getElementById('modal-root');
+      if (modalRoot && modalRoot.children.length > 0) {
+        closeModal();
+        return;
+      }
+
+      // 2. If browser has history, use standard history back
+      if (window.history.length > 1 && navigationHistory.length > 0) {
+        window.history.back();
+      } else if (navigationHistory.length > 0) {
+        // Fallback to internal history stack
+        const prev = navigationHistory.pop();
+        navigateTo(prev.page, { inquiryCategory: prev.inquiryCategory, isBack: true, pushHistory: true });
+      } else {
+        // Fallback to home gateway
+        navigateTo('home');
+      }
+    }
+
+    // Browser Arrow Back / Forward (Popstate) Listener
+    window.addEventListener('popstate', (e) => {
+      // If modal is open, close it
+      const modalRoot = document.getElementById('modal-root');
+      if (modalRoot && modalRoot.children.length > 0) {
+        closeModal();
+        return;
+      }
+
+      let targetPage = 'home';
+      let targetCategory = state.inquiryCategory;
+
+      if (e.state && e.state.page) {
+        targetPage = e.state.page;
+        if (e.state.inquiryCategory) targetCategory = e.state.inquiryCategory;
+      } else if (window.location.hash) {
+        const hashPage = window.location.hash.replace(/^#\/?/, '');
+        if (NAV_ITEMS.some(item => item.id === hashPage) || hashPage === 'home') {
+          targetPage = hashPage;
+        }
+      }
+
+      navigateTo(targetPage, {
+        inquiryCategory: targetCategory,
+        isBack: true,
+        pushHistory: false
+      });
+    });
+
+    // Keyboard Arrow Back (Alt + LeftArrow) and Escape listener
+    window.addEventListener('keydown', (e) => {
+      // Escape closes modal
+      if (e.key === 'Escape') {
+        const modalRoot = document.getElementById('modal-root');
+        if (modalRoot && modalRoot.children.length > 0) {
+          closeModal();
+          return;
+        }
+      }
+
+      // Alt + LeftArrow triggers Back
+      if (e.altKey && e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goBack();
+      }
+    });
+
+    function initRouteFromURL() {
+      const hashPage = window.location.hash.replace(/^#\/?/, '');
+      if (hashPage && (NAV_ITEMS.some(item => item.id === hashPage) || hashPage === 'home')) {
+        state.activePage = hashPage;
+      } else {
+        state.activePage = 'home';
+      }
+      window.history.replaceState({ page: state.activePage, inquiryCategory: state.inquiryCategory }, '', window.location.hash ? undefined : window.location.pathname);
     }
 
     function toggleMobileMenu() {
@@ -2820,9 +2993,15 @@
       root.innerHTML = `
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#080B12]/85 backdrop-blur-xl overflow-y-auto">
           <div class="relative w-full max-w-2xl rounded-3xl glass-panel border border-[#B9DDF7]/30 overflow-hidden my-8">
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 p-2 rounded-full bg-[#080B12]/80 text-white hover:text-[#B9DDF7] cursor-pointer" aria-label="Close modal">
-              <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
+            <div class="absolute top-4 inset-x-4 z-10 flex items-center justify-between pointer-events-none">
+              <button onclick="closeModal()" class="pointer-events-auto px-3 py-1.5 rounded-full bg-[#080B12]/80 text-[#C6CBD3] hover:text-white border border-white/10 flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider cursor-pointer shadow-lg">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                <span>Back</span>
+              </button>
+              <button onclick="closeModal()" class="pointer-events-auto p-2 rounded-full bg-[#080B12]/80 text-white hover:text-[#B9DDF7] cursor-pointer" aria-label="Close modal">
+                <i data-lucide="x" class="w-5 h-5"></i>
+              </button>
+            </div>
 
             <div class="relative h-52">
               <img src="${ev.image}" alt="${ev.title}" class="w-full h-full object-cover" />
@@ -2906,13 +3085,15 @@
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#080B12]/90 backdrop-blur-xl overflow-y-auto">
           <div class="relative w-full max-w-3xl rounded-3xl glass-panel border border-[#B9DDF7]/30 p-6 sm:p-10 max-h-[90vh] overflow-y-auto space-y-6 my-8">
             <div class="flex items-center justify-between border-b border-[#C6CBD3]/15 pb-4">
-              <div class="flex items-center gap-3 text-xs font-mono text-[#B9DDF7]">
-                <span class="px-3 py-1 rounded-full bg-[#B9DDF7]/10 border border-[#B9DDF7]/30">${art.category}</span>
-                <span>${art.date}</span>
-                <span>•</span>
+              <button onclick="closeModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#101827] border border-white/10 text-xs font-mono uppercase tracking-wider text-[#B9DDF7] hover:text-white hover:border-[#B9DDF7]/40 transition-colors cursor-pointer group">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5 transform group-hover:-translate-x-1 transition-transform"></i>
+                <span>Back to Journal</span>
+              </button>
+              <div class="hidden sm:flex items-center gap-3 text-xs font-mono text-[#8993A3]">
+                <span class="px-2.5 py-0.5 rounded bg-[#B9DDF7]/10 text-[#B9DDF7]">${art.category}</span>
                 <span>${art.readTime}</span>
               </div>
-              <button onclick="closeModal()" class="p-2 rounded-full bg-[#080B12] text-[#C6CBD3] hover:text-white cursor-pointer">
+              <button onclick="closeModal()" class="p-2 rounded-full bg-[#080B12] text-[#C6CBD3] hover:text-white cursor-pointer" aria-label="Close modal">
                 <i data-lucide="x" class="w-5 h-5"></i>
               </button>
             </div>
@@ -2953,11 +3134,17 @@
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#080B12]/85 backdrop-blur-xl">
           <div class="relative w-full max-w-2xl rounded-3xl glass-panel p-6 sm:p-10 max-h-[85vh] overflow-y-auto space-y-6">
             <div class="flex items-center justify-between border-b border-[#C6CBD3]/15 pb-4">
-              <div>
-                <div class="text-[10px] font-mono uppercase tracking-[0.2em] text-[#B9DDF7]">ECHO FOREVER LLC • LEGAL GOVERNANCE</div>
-                <h3 class="font-serif text-3xl text-white">${isPrivacy ? 'Privacy Policy' : 'Terms of Use'}</h3>
+              <div class="flex items-center gap-3">
+                <button onclick="closeModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#101827] border border-white/10 text-xs font-mono uppercase tracking-wider text-[#B9DDF7] hover:text-white cursor-pointer group">
+                  <i data-lucide="arrow-left" class="w-3.5 h-3.5 transform group-hover:-translate-x-1 transition-transform"></i>
+                  <span>Back</span>
+                </button>
+                <div>
+                  <div class="text-[10px] font-mono uppercase tracking-[0.2em] text-[#B9DDF7]">ECHO FOREVER LLC • LEGAL GOVERNANCE</div>
+                  <h3 class="font-serif text-2xl sm:text-3xl text-white">${isPrivacy ? 'Privacy Policy' : 'Terms of Use'}</h3>
+                </div>
               </div>
-              <button onclick="closeModal()" class="p-2 rounded-full bg-[#080B12] text-[#C6CBD3] hover:text-white cursor-pointer">
+              <button onclick="closeModal()" class="p-2 rounded-full bg-[#080B12] text-[#C6CBD3] hover:text-white cursor-pointer" aria-label="Close modal">
                 <i data-lucide="x" class="w-5 h-5"></i>
               </button>
             </div>
@@ -3025,6 +3212,7 @@
 
     // Initial Application Boot
     document.addEventListener('DOMContentLoaded', () => {
+      initRouteFromURL();
       renderApp();
     });
   </script>

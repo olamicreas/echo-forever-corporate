@@ -30,7 +30,14 @@
 
 This enterprise web portal is built with modern web standards, delivering 60fps GPU-accelerated performance without heavyweight framework overhead:
 
-- **Single-Page Application (SPA)**: Lightweight 9-view reactive client-side router (`home`, `about`, `ecosystem`, `experiences`, `collective`, `ventures`, `journal`, `foundation`, `contact`).
+- **Single-Page Application (SPA) & Arrow-Back History Architecture**:
+  - Lightweight 9-view reactive client-side router (`home`, `about`, `ecosystem`, `experiences`, `collective`, `ventures`, `journal`, `foundation`, `contact`).
+  - **Browser Arrow Back & Forward Navigation**: Synchronized HTML5 History API (`history.pushState` / `popstate` / URL hash routing `#about`, `#experiences`, etc.) allowing seamless navigation via the browser's native Back Arrow button, hardware mouse back buttons, and trackpad swipe gestures.
+  - **On-Screen Arrow Back Controls**:
+    - Contextual header Back button (`#header-back-btn`) dynamically rendered beside the brand monogram on sub-views.
+    - Institutional `Back to Previous Screen` pill bar (`renderSubpageBackBar`) displayed atop every sub-page view.
+    - Modal-level back navigation returning readers cleanly to the active dispatch or experience.
+    - Keyboard navigation via `Alt + LeftArrow` and `Escape`.
 - **Institutional Visual Identity**: Dark obsidian aesthetics (`#080B12`, `#101827`, `#171D29`), ice/soft blue highlights (`#B9DDF7`, `#78BCEB`), champagne gold foundation accents (`#C7AD7A`), and 24px blurred glassmorphic docks.
 - **Authoritative Hero Typography**: Clean, editorial headline entrance with a whole-phrase vertical lift (`data-aos="fade-down"`, 1000ms duration) and continuous dual-tone gradient background-clip shimmer on `"CULTURE"` and `"CAPITAL."`.
 - **Cyberpunk Cipher Decryption Engine**: Real-time cryptographic text glyph resolver with smooth stabilization on the Hero supporting thesis statement.
