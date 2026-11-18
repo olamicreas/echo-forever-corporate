@@ -396,7 +396,7 @@
   <!-- ==========================================================================
        DYNAMIC SPA VIEW CONTAINER (9 COMPLETE CORPORATE VIEWS)
        ========================================================================== -->
-  <main id="app-view" class="pt-16 min-h-[80vh]"></main>
+  <main id="app-view" class="min-h-screen"></main>
 
   <!-- ==========================================================================
        SECTION 09 — SOPHISTICATED MULTI-COLUMN CORPORATE FOOTER
@@ -1100,7 +1100,7 @@
 
       return `
         <!-- SECTION 01 — HERO -->
-        <section id="sec-hero" class="relative min-h-[calc(100vh-4rem)] flex flex-col justify-between overflow-hidden pt-6 pb-6 sm:pt-10 sm:pb-8 lg:pt-12 lg:pb-8 bg-architectural-grid">
+        <section id="sec-hero" class="relative min-h-screen pt-28 sm:pt-36 lg:pt-40 pb-10 flex flex-col justify-between overflow-hidden bg-architectural-grid">
           <div class="absolute inset-0 z-0">
             <img
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85"
@@ -1114,7 +1114,7 @@
             ></div>
           </div>
 
-          <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center my-auto flex flex-col justify-center">
+          <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-8 sm:mt-12 my-auto flex flex-col justify-center">
             <!-- Clean EF Monogram Crown with Pulsing Halo -->
             <div data-aos="fade-down" class="mb-4 sm:mb-6 flex justify-center">
               <div class="relative inline-flex items-center justify-center">
@@ -1128,27 +1128,25 @@
               </div>
             </div>
 
-            <!-- Authoritative Editorial Hero Headline -->
+            <!-- Kinetic Character-by-Character Hero Headline -->
             <div class="max-w-5xl mx-auto">
               <h1
                 id="hero-kinetic-headline"
-                data-aos="fade-down"
-                style="transition-duration: 1000ms;"
                 aria-label="WHERE CULTURE MEETS CAPITAL."
                 class="font-serif tracking-tight leading-[1.03] text-4xl sm:text-5xl md:text-6xl lg:text-[74px] font-semibold text-white"
               >
-                <span>WHERE </span>
-                <span class="bg-gradient-to-r from-white via-[#B9DDF7] to-[#78BCEB] bg-clip-text text-transparent hero-shimmer inline-block">CULTURE</span>
-                <span> MEETS </span>
-                <span class="bg-gradient-to-r from-white via-[#B9DDF7] to-[#78BCEB] bg-clip-text text-transparent hero-shimmer inline-block">CAPITAL.</span>
+                ${buildKineticHeadlineHTML([
+                  { text: 'WHERE', highlight: false },
+                  { text: 'CULTURE', highlight: true },
+                  { text: 'MEETS', highlight: false },
+                  { text: 'CAPITAL.', highlight: true }
+                ], 80, 32)}
               </h1>
             </div>
 
-            <!-- Cyberpunk Cipher Decryption Supporting Statement -->
+            <!-- Clean Editorial Supporting Statement -->
             <div data-aos="fade-up" style="transition-delay: 200ms" class="max-w-2xl mx-auto mt-4 sm:mt-5">
               <p
-                id="hero-cipher-text"
-                aria-label="Building connections, creating opportunities, and developing ideas that shape what comes next."
                 class="text-sm sm:text-base md:text-lg text-[#C6CBD3] font-light leading-relaxed min-h-[2.75rem]"
               >
                 Building connections, creating opportunities, and developing ideas that shape what comes next.
@@ -1255,19 +1253,8 @@
                     <div class="text-[10px] font-mono uppercase tracking-[0.24em] text-[#B9DDF7] mb-2">
                       INSTITUTIONAL ETHOS
                     </div>
-                    <p class="font-serif text-xl italic leading-snug kinetic-scroll-target" aria-label="“One parent company. Multiple business platforms. Shared vision. Lasting impact.”">
-                      ${buildKineticHeadlineHTML([
-                        { text: '“One', highlight: false },
-                        { text: 'parent', highlight: false },
-                        { text: 'company.', highlight: true },
-                        { text: 'Multiple', highlight: false },
-                        { text: 'business', highlight: false },
-                        { text: 'platforms.', highlight: true },
-                        { text: 'Shared', highlight: false },
-                        { text: 'vision.', highlight: false },
-                        { text: 'Lasting', highlight: true },
-                        { text: 'impact.”', highlight: true }
-                      ], 100, 22)}
+                    <p id="ethos-cipher-text" class="font-serif text-xl italic leading-snug text-white min-h-[3.5rem]">
+                      “One parent company. Multiple business platforms. Shared vision. Lasting impact.”
                     </p>
                   </div>
                 </div>
@@ -2417,6 +2404,9 @@
       const container = document.getElementById('app-view');
       if (!container) return;
 
+      const isHome = state.activePage === 'home';
+      container.className = isHome ? 'min-h-screen' : 'pt-16 min-h-[80vh]';
+
       switch (state.activePage) {
         case 'home':
           container.innerHTML = getHomeHTML();
@@ -2453,6 +2443,7 @@
       lucide.createIcons();
       initAOS();
       initKineticScrollObserver();
+      initEthosCipherObserver();
       initMagneticButtons();
       initSpotlightCards();
     }
@@ -2461,15 +2452,22 @@
     // 6. KINETIC HEADLINE & CYBERPUNK CIPHER DECRYPTION ENGINE
     // ==========================================================================
     function startHeroAnimations() {
-      // Trigger Cyberpunk Cipher Decryption Tagline on Hero
-      startCipherEffect();
+      // Trigger Kinetic Character-by-Character Reveal on Hero Headline
+      const chars = document.querySelectorAll('#hero-kinetic-headline .kinetic-char');
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          chars.forEach((ch) => ch.classList.add('revealed'));
+        }, 50);
+      });
     }
 
-    function startCipherEffect() {
-      const el = document.getElementById('hero-cipher-text');
+    let ethosCipherObserver = null;
+
+    function startCipherEffect(targetElement = 'ethos-cipher-text', customText = null) {
+      const el = typeof targetElement === 'string' ? document.getElementById(targetElement) : targetElement;
       if (!el) return;
 
-      const targetText = 'Building connections, creating opportunities, and developing ideas that shape what comes next.';
+      const targetText = customText || el.getAttribute('data-cipher-text') || el.textContent.trim();
       const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/\\|<>[]{}—•*+=';
 
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -2484,18 +2482,46 @@
         el.textContent = targetText
           .split('')
           .map((char, idx) => {
-            if (char === ' ' || char === ',' || char === '.') return char;
+            if (char === ' ' || char === ',' || char === '.' || char === '“' || char === '”') return char;
             if (idx < iteration) return targetText[idx];
             return glyphs[Math.floor(Math.random() * glyphs.length)];
           })
           .join('');
 
-        iteration += 1.25;
+        iteration += 1.15;
         if (iteration >= targetText.length) {
           el.textContent = targetText;
           clearInterval(cipherInterval);
         }
-      }, 26);
+      }, 24);
+    }
+
+    function initEthosCipherObserver() {
+      if (ethosCipherObserver) ethosCipherObserver.disconnect();
+
+      const ethosEl = document.getElementById('ethos-cipher-text');
+      if (!ethosEl) return;
+
+      const fullQuote = '“One parent company. Multiple business platforms. Shared vision. Lasting impact.”';
+
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        ethosEl.textContent = fullQuote;
+        return;
+      }
+
+      ethosCipherObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              startCipherEffect(entry.target, fullQuote);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+
+      ethosCipherObserver.observe(ethosEl);
     }
 
     // ==========================================================================
