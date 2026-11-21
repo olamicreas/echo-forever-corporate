@@ -505,12 +505,21 @@
           </p>
         </div>
 
-        <div class="flex items-center gap-6 shrink-0">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 shrink-0">
+          <button onclick="openLegalModal('terms')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
+            Terms of Use
+          </button>
           <button onclick="openLegalModal('privacy')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
             Privacy Policy
           </button>
-          <button onclick="openLegalModal('terms')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
-            Terms of Use
+          <button onclick="openLegalModal('cookies')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
+            Cookie Policy
+          </button>
+          <button onclick="openLegalModal('event-terms')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
+            Event Terms
+          </button>
+          <button onclick="openLegalModal('foundation-disclaimer')" class="hover:text-[#C7AD7A] text-[#8993A3] transition-colors cursor-pointer underline underline-offset-4">
+            Foundation Disclaimer
           </button>
         </div>
       </div>
@@ -2551,7 +2560,11 @@
 
     function initRouteFromURL() {
       const hashPage = window.location.hash.replace(/^#\/?/, '');
-      if (hashPage && (NAV_ITEMS.some(item => item.id === hashPage) || hashPage === 'home')) {
+      const legalKeys = ['terms', 'privacy', 'cookies', 'event-terms', 'foundation-disclaimer'];
+      if (legalKeys.includes(hashPage)) {
+        state.activePage = 'home';
+        setTimeout(() => openLegalModal(hashPage), 150);
+      } else if (hashPage && (NAV_ITEMS.some(item => item.id === hashPage) || hashPage === 'home')) {
         state.activePage = hashPage;
       } else {
         state.activePage = 'home';
@@ -3127,50 +3140,709 @@
       lucide.createIcons();
     }
 
-    function openLegalModal(type) {
-      const isPrivacy = type === 'privacy';
+    // ==========================================================================
+    // CORPORATE LEGAL GOVERNANCE DOCUMENTS REPOSITORY
+    // ==========================================================================
+    const LEGAL_DOCUMENTS = {
+      'terms': {
+        id: 'terms',
+        title: 'Website Terms of Use',
+        shortTitle: 'Terms of Use',
+        effectiveDate: 'November 21, 2026',
+        lastUpdated: 'November 21, 2026',
+        html: `
+          <div class="space-y-6 text-sm text-[#C6CBD3] leading-relaxed">
+            <div class="p-4 rounded-xl bg-[#101827] border border-[#B9DDF7]/25 space-y-1">
+              <div class="text-xs font-mono uppercase tracking-[0.2em] text-[#B9DDF7]">ECHO FOREVER LLC • WEBSITE TERMS OF USE</div>
+              <div class="text-xs text-[#8993A3]">Effective Date: November 21, 2026 | Last Updated: November 21, 2026</div>
+            </div>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">1. INTRODUCTION</h4>
+              <p>Welcome to ECHO FOREVER.</p>
+              <p>These Terms of Use govern your access to and use of <strong>ECHOforevergroup.com</strong>, including its content, publications, event information, registration services, digital materials, and other features.</p>
+              <p>The website is owned and operated by ECHO FOREVER LLC (“ECHO FOREVER,” “ECHO,” “Company,” “we,” “our,” or “us”).</p>
+              <p>By accessing or using this website, you agree to these Terms. If you do not agree, please discontinue use of the website.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">2. ABOUT ECHO FOREVER</h4>
+              <p>ECHO FOREVER is a company built around the intersection of culture, business, community, and capital.</p>
+              <p>Our initial areas of operation include:</p>
+              <ul class="list-disc list-inside space-y-1 pl-2 text-[#C6CBD3]">
+                <li>Curated events and experiences.</li>
+                <li>Leadership, business, and cultural conversations.</li>
+                <li>Strategic partnerships and sponsorships.</li>
+                <li>Charitable and community-impact initiatives.</li>
+              </ul>
+              <p>ECHO FOREVER may expand its activities and develop additional business initiatives over time.</p>
+              <p>Descriptions of future plans do not constitute a guarantee that any particular product, service, program, or opportunity will become available.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">3. WEBSITE INFORMATION</h4>
+              <p>Information published on this website is provided for general informational purposes.</p>
+              <p>Although we make reasonable efforts to maintain accurate and current information, we do not guarantee that all content is complete, accurate, or free from errors.</p>
+              <p>ECHO FOREVER reserves the right to update, modify, suspend, or discontinue website content at any time.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">4. INTELLECTUAL PROPERTY</h4>
+              <p>The ECHO FOREVER name, logo, visual identity, graphics, designs, written materials, photographs, videos, publications, and other original content are owned by ECHO FOREVER LLC or used with appropriate authorization.</p>
+              <p>These materials may be protected by copyright, trademark, and other intellectual property laws.</p>
+              <p>No person may reproduce, distribute, modify, publish, commercially exploit, or otherwise use ECHO FOREVER intellectual property without prior written permission.</p>
+              <p>Nothing on this website grants any person ownership or license rights in the Company’s intellectual property.</p>
+              <p>Unauthorized use of the ECHO FOREVER name, logo, or brand identity is prohibited.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">5. ACCEPTABLE USE</h4>
+              <p>You agree not to:</p>
+              <ul class="list-disc list-inside space-y-1.5 pl-2 text-[#C6CBD3]">
+                <li>Use this website for unlawful or fraudulent purposes.</li>
+                <li>Attempt to gain unauthorized access to our systems.</li>
+                <li>Interfere with website security or functionality.</li>
+                <li>Introduce malicious code or harmful software.</li>
+                <li>Copy or commercially exploit website materials without authorization.</li>
+                <li>Misrepresent your affiliation with ECHO FOREVER.</li>
+                <li>Use our name or identity to imply an unauthorized endorsement, partnership, or sponsorship.</li>
+                <li>Submit material that infringes another person’s rights.</li>
+              </ul>
+              <p>We reserve the right to restrict access where reasonably necessary to protect our business, users, and website.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">6. EVENTS AND EXPERIENCES</h4>
+              <p>ECHO FOREVER may organize events, private gatherings, conferences, dinners, cultural experiences, and other programs.</p>
+              <p>Participation may require registration, ticket purchase, identification, or acceptance of additional event-specific conditions.</p>
+              <p>Event information, speakers, programming, schedules, and venues may change.</p>
+              <p>Purchasing a ticket or attending an event does not establish a partnership, employment, investment, agency, or other business relationship with ECHO FOREVER.</p>
+              <p>Separate Event Terms and Conditions may apply.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">7. PARTNERSHIPS AND SPONSORSHIPS</h4>
+              <p>References to potential partnerships, sponsorships, collaborations, and business opportunities are informational.</p>
+              <p>No partnership, joint venture, agency, sponsorship, or contractual relationship is created merely through website access, event attendance, or an inquiry.</p>
+              <p>All formal arrangements must be documented in a separate written agreement signed by authorized representatives.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">8. ECHO FOUNDATION</h4>
+              <p>ECHO FOREVER may develop charitable and community-impact initiatives under the ECHO FOUNDATION name.</p>
+              <p>Unless separately established and legally authorized, references to ECHO FOUNDATION describe an initiative or proposed charitable platform.</p>
+              <p>ECHO FOREVER LLC is a for-profit business entity. It is not represented as a tax-exempt charitable organization.</p>
+              <p>No contribution should be represented as tax-deductible unless the receiving organization is legally qualified to receive deductible contributions and the applicable requirements have been satisfied.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">9. NO INVESTMENT OR FINANCIAL ADVICE</h4>
+              <p>ECHO FOREVER is not, through this website, offering investment advisory, brokerage, banking, securities, or other regulated financial services.</p>
+              <p>References to capital, finance, wealth, business, investment, or entrepreneurship are for general informational and educational purposes.</p>
+              <p>Nothing on this website constitutes an offer or solicitation to buy or sell securities or investment products.</p>
+              <p>Any future regulated activity will be subject to applicable legal requirements and appropriate authorization.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">10. THIRD-PARTY WEBSITES</h4>
+              <p>Our website may contain links to third-party websites, service providers, payment platforms, ticketing companies, sponsors, and partners.</p>
+              <p>These third parties operate independently and are governed by their own terms and privacy policies.</p>
+              <p>ECHO FOREVER is not responsible for the content, security, services, or privacy practices of external websites.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">11. DISCLAIMER OF WARRANTIES</h4>
+              <p>This website and its content are provided on an “AS IS” and “AS AVAILABLE” basis to the fullest extent permitted by law.</p>
+              <p>ECHO FOREVER does not guarantee uninterrupted website access, error-free operation, or that all content will meet your expectations.</p>
+              <p>Nothing in these Terms excludes warranties or rights that cannot legally be excluded.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">12. LIMITATION OF LIABILITY</h4>
+              <p>To the fullest extent permitted by applicable law, ECHO FOREVER LLC shall not be liable for indirect, incidental, special, consequential, exemplary, or punitive damages arising from your use of this website.</p>
+              <p>Nothing in these Terms limits liability that cannot legally be limited or excluded.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">13. INDEMNIFICATION</h4>
+              <p>To the extent permitted by law, you agree to indemnify and hold harmless ECHO FOREVER LLC, its owners, officers, employees, contractors, and representatives against third-party claims and reasonable expenses arising from your unlawful use of the website, violation of these Terms, or infringement of another person’s rights.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">14. GOVERNING LAW</h4>
+              <p>These Terms shall be governed by the laws of the State of Delaware, without regard to conflict-of-law principles, subject to applicable federal law.</p>
+              <p>Any dispute shall be handled in a court of competent jurisdiction, subject to applicable law.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">15. MODIFICATIONS</h4>
+              <p>ECHO FOREVER reserves the right to amend these Terms from time to time.</p>
+              <p>Revised Terms will be published on this website with an updated revision date.</p>
+            </section>
+
+            <section class="space-y-2 pt-2 border-t border-[#C6CBD3]/15">
+              <h4 class="font-serif text-lg text-white font-medium">16. CONTACT</h4>
+              <p>For questions regarding these Terms, please contact:</p>
+              <div class="p-4 rounded-xl bg-[#080B12] border border-[#C6CBD3]/15 text-xs font-mono space-y-1">
+                <div class="text-white font-sans font-semibold">ECHO FOREVER LLC</div>
+                <div>Website: <a href="https://ECHOforevergroup.com" target="_blank" class="text-[#B9DDF7] underline">ECHOforevergroup.com</a></div>
+                <div>Email: <a href="mailto:legal@ECHOforevergroup.com" class="text-[#B9DDF7] underline">legal@ECHOforevergroup.com</a></div>
+                <div>Business Address: ECHO FOREVER LLC, Executive Correspondence Desk, New York, NY</div>
+              </div>
+            </section>
+          </div>
+        `
+      },
+      'privacy': {
+        id: 'privacy',
+        title: 'Privacy Policy',
+        shortTitle: 'Privacy Policy',
+        effectiveDate: 'November 21, 2026',
+        lastUpdated: 'November 21, 2026',
+        html: `
+          <div class="space-y-6 text-sm text-[#C6CBD3] leading-relaxed">
+            <div class="p-4 rounded-xl bg-[#101827] border border-[#B9DDF7]/25 space-y-1">
+              <div class="text-xs font-mono uppercase tracking-[0.2em] text-[#B9DDF7]">ECHO FOREVER LLC • PRIVACY POLICY</div>
+              <div class="text-xs text-[#8993A3]">Effective Date: November 21, 2026 | Last Updated: November 21, 2026</div>
+            </div>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">1. OUR COMMITMENT TO PRIVACY</h4>
+              <p>ECHO FOREVER LLC respects the privacy of individuals who visit our website, attend our events, communicate with our team, or participate in our programs.</p>
+              <p>This Privacy Policy explains how we collect, use, disclose, retain, and protect personal information.</p>
+              <p>This policy applies to <strong>ECHOforevergroup.com</strong> and personal information collected through our business activities, subject to applicable law.</p>
+            </section>
+
+            <section class="space-y-3">
+              <h4 class="font-serif text-lg text-white font-medium">2. INFORMATION WE COLLECT</h4>
+              <p>Depending on your interaction with ECHO FOREVER, we may collect the following categories of information:</p>
+
+              <div class="space-y-1.5 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">A. Identification Information</div>
+                <ul class="list-disc list-inside space-y-1 pl-1 text-xs text-[#C6CBD3]">
+                  <li>First and last name.</li>
+                  <li>Professional title.</li>
+                  <li>Organization or company affiliation.</li>
+                  <li>Other information voluntarily provided.</li>
+                </ul>
+              </div>
+
+              <div class="space-y-1.5 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">B. Contact Information</div>
+                <ul class="list-disc list-inside space-y-1 pl-1 text-xs text-[#C6CBD3]">
+                  <li>Email address.</li>
+                  <li>Telephone number.</li>
+                  <li>Business or mailing address.</li>
+                </ul>
+              </div>
+
+              <div class="space-y-1.5 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">C. Event Information</div>
+                <ul class="list-disc list-inside space-y-1 pl-1 text-xs text-[#C6CBD3]">
+                  <li>Event registrations.</li>
+                  <li>Ticket purchase details.</li>
+                  <li>Attendance information.</li>
+                  <li>Dietary or accessibility requests voluntarily provided.</li>
+                  <li>Event participation and communication preferences.</li>
+                </ul>
+              </div>
+
+              <div class="space-y-1.5 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">D. Transaction Information</div>
+                <p class="text-xs text-[#C6CBD3]">When you purchase tickets or other services, payment information may be processed by third-party payment providers.</p>
+                <p class="text-xs text-[#C6CBD3]">We may receive transaction confirmations, payment status, purchase history, and limited payment-related information.</p>
+                <p class="text-xs text-[#C6CBD3]">We do not intend to store full payment card numbers or security codes on our website.</p>
+              </div>
+
+              <div class="space-y-1.5 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">E. Technical Information</div>
+                <ul class="list-disc list-inside space-y-1 pl-1 text-xs text-[#C6CBD3]">
+                  <li>IP address.</li>
+                  <li>Browser and device information.</li>
+                  <li>Website activity.</li>
+                  <li>Pages visited.</li>
+                  <li>Referral information.</li>
+                  <li>Cookie and similar technology data.</li>
+                </ul>
+              </div>
+
+              <div class="space-y-1.5 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">F. Communications Information</div>
+                <p class="text-xs text-[#C6CBD3]">We may retain communications you send to us, including inquiries, partnership proposals, sponsorship requests, feedback, and correspondence.</p>
+              </div>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">3. HOW WE COLLECT INFORMATION</h4>
+              <p>We may collect information:</p>
+              <ul class="list-disc list-inside space-y-1 pl-2 text-[#C6CBD3]">
+                <li>Directly from you through website forms.</li>
+                <li>When you register for an event.</li>
+                <li>When you purchase tickets.</li>
+                <li>When you subscribe to communications.</li>
+                <li>When you contact our team.</li>
+                <li>Through cookies and similar technologies.</li>
+                <li>From service providers supporting our operations.</li>
+                <li>From publicly available professional sources where legally permitted.</li>
+              </ul>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">4. WHY WE USE PERSONAL INFORMATION</h4>
+              <p>We may use personal information to:</p>
+              <ul class="list-disc list-inside space-y-1 pl-2 text-[#C6CBD3]">
+                <li>Operate and maintain our website.</li>
+                <li>Process event registrations and ticket purchases.</li>
+                <li>Communicate event details and updates.</li>
+                <li>Respond to inquiries.</li>
+                <li>Manage partnerships and sponsorship relationships.</li>
+                <li>Send newsletters and promotional communications where permitted.</li>
+                <li>Improve our website and services.</li>
+                <li>Protect against fraud, misuse, and security threats.</li>
+                <li>Maintain business records.</li>
+                <li>Meet legal and regulatory obligations.</li>
+              </ul>
+              <p>We will not use personal information for purposes incompatible with this policy without providing any notice or obtaining consent required by law.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">5. MARKETING COMMUNICATIONS</h4>
+              <p>ECHO FOREVER may send information about upcoming events, announcements, publications, partnerships, and company initiatives.</p>
+              <p>Where required, we will obtain consent before sending promotional communications.</p>
+              <p>You may unsubscribe using the instructions included in our emails.</p>
+              <p>Unsubscribing from promotional communications will not prevent us from sending necessary transactional or administrative communications.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">6. SHARING PERSONAL INFORMATION</h4>
+              <p>We may disclose personal information to carefully selected third parties that support our business, including:</p>
+              <ul class="list-disc list-inside space-y-1 pl-2 text-[#C6CBD3]">
+                <li>Website hosting providers.</li>
+                <li>Email and communication platforms.</li>
+                <li>Event registration and ticketing providers.</li>
+                <li>Payment processors.</li>
+                <li>Marketing and analytics providers.</li>
+                <li>Professional advisers, including lawyers and accountants.</li>
+                <li>Government authorities where legally required.</li>
+              </ul>
+              <p>Service providers may only process personal information as permitted by applicable law and the relevant contractual arrangements.</p>
+              <p>We do not authorize third parties to use personal information obtained through our business for their own independent marketing purposes unless separately disclosed and legally permitted.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">7. SALE AND SHARING OF PERSONAL INFORMATION</h4>
+              <p>ECHO FOREVER does not intend to sell personal information for money.</p>
+              <p>Certain website analytics or advertising technologies may constitute sharing or targeted advertising under specific privacy laws.</p>
+              <p>Where applicable, we will provide legally required disclosures and mechanisms to exercise relevant opt-out rights.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">8. DATA RETENTION</h4>
+              <p>We retain personal information only for as long as reasonably necessary for the purposes described in this policy, including business operations, recordkeeping, security, and legal compliance.</p>
+              <p>Retention periods depend on the nature of the information and the applicable legal requirements.</p>
+              <p>Information that is no longer necessary will be securely deleted, destroyed, or de-identified where appropriate.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">9. DATA SECURITY</h4>
+              <p>We use reasonable administrative, technical, and organizational measures designed to protect personal information against unauthorized access, disclosure, alteration, or destruction.</p>
+              <p>However, no electronic transmission or storage system can be guaranteed to be completely secure.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">10. YOUR PRIVACY RIGHTS</h4>
+              <p>Depending on your state or country of residence, you may have rights to:</p>
+              <ul class="list-disc list-inside space-y-1 pl-2 text-[#C6CBD3]">
+                <li>Request access to personal information.</li>
+                <li>Request correction of inaccurate information.</li>
+                <li>Request deletion of certain information.</li>
+                <li>Obtain a portable copy of certain information.</li>
+                <li>Opt out of certain targeted advertising or data-sharing practices.</li>
+                <li>Withdraw consent where processing is based on consent.</li>
+                <li>Appeal certain privacy decisions where required by law.</li>
+              </ul>
+              <p>To submit a request, contact us using the information below. We may need to verify your identity before processing a request.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">11. CHILDREN’S PRIVACY</h4>
+              <p>Our website is not directed toward children under 13.</p>
+              <p>We do not knowingly collect personal information from children under 13 through the website without legally required parental consent.</p>
+              <p>If we become aware that such information has been collected improperly, we will take reasonable steps to address it.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">12. THIRD-PARTY WEBSITES</h4>
+              <p>Our website may link to external websites and services. This Privacy Policy does not govern third-party websites. We encourage visitors to review the privacy policies of those providers.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">13. INTERNATIONAL VISITORS</h4>
+              <p>Visitors accessing our website from outside the United States understand that information may be processed in the United States or other jurisdictions where our service providers operate. Where required, we will implement appropriate safeguards for international transfers.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">14. CHANGES TO THIS POLICY</h4>
+              <p>We may update this Privacy Policy as our business, website, and legal obligations evolve. Material changes will be reflected by updating the effective or revision date.</p>
+            </section>
+
+            <section class="space-y-2 pt-2 border-t border-[#C6CBD3]/15">
+              <h4 class="font-serif text-lg text-white font-medium">15. CONTACT US</h4>
+              <p>For privacy questions or requests:</p>
+              <div class="p-4 rounded-xl bg-[#080B12] border border-[#C6CBD3]/15 text-xs font-mono space-y-1">
+                <div class="text-white font-sans font-semibold">ECHO FOREVER LLC</div>
+                <div>Privacy Contact: <a href="mailto:privacy@ECHOforevergroup.com" class="text-[#B9DDF7] underline">privacy@ECHOforevergroup.com</a></div>
+                <div>Website: <a href="https://ECHOforevergroup.com" target="_blank" class="text-[#B9DDF7] underline">ECHOforevergroup.com</a></div>
+                <div>Business Address: ECHO FOREVER LLC, Executive Correspondence Desk, New York, NY</div>
+              </div>
+            </section>
+          </div>
+        `
+      },
+      'cookies': {
+        id: 'cookies',
+        title: 'Cookie Policy',
+        shortTitle: 'Cookie Policy',
+        effectiveDate: 'November 21, 2026',
+        lastUpdated: 'November 21, 2026',
+        html: `
+          <div class="space-y-6 text-sm text-[#C6CBD3] leading-relaxed">
+            <div class="p-4 rounded-xl bg-[#101827] border border-[#B9DDF7]/25 space-y-1">
+              <div class="text-xs font-mono uppercase tracking-[0.2em] text-[#B9DDF7]">ECHO FOREVER LLC • COOKIE POLICY</div>
+              <div class="text-xs text-[#8993A3]">Effective Date: November 21, 2026 | Last Updated: November 21, 2026</div>
+            </div>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">1. INTRODUCTION</h4>
+              <p>This Cookie Policy explains how ECHO FOREVER LLC uses cookies and similar technologies on <strong>ECHOforevergroup.com</strong>.</p>
+              <p>It should be read together with our Privacy Policy.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">2. WHAT ARE COOKIES?</h4>
+              <p>Cookies are small text files stored on your device when you visit a website.</p>
+              <p>They help websites operate, remember preferences, understand website performance, and improve user experiences.</p>
+            </section>
+
+            <section class="space-y-3">
+              <h4 class="font-serif text-lg text-white font-medium">3. TYPES OF COOKIES</h4>
+              <p>Depending on the technologies implemented on our website, we may use:</p>
+
+              <div class="space-y-1 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">A. Strictly Necessary Cookies</div>
+                <p class="text-xs text-[#C6CBD3]">These support essential website functions, including security, navigation, and basic functionality.</p>
+              </div>
+
+              <div class="space-y-1 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">B. Preference Cookies</div>
+                <p class="text-xs text-[#C6CBD3]">These remember selections and preferences to improve your experience.</p>
+              </div>
+
+              <div class="space-y-1 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">C. Analytics Cookies</div>
+                <p class="text-xs text-[#C6CBD3]">These help us understand how visitors interact with our website and measure website performance.</p>
+              </div>
+
+              <div class="space-y-1 pl-3 border-l-2 border-[#B9DDF7]/30">
+                <div class="font-medium text-white text-xs uppercase tracking-wider">D. Marketing Cookies</div>
+                <p class="text-xs text-[#C6CBD3]">Where used, these may support advertising measurement, campaign performance, and relevant promotional content.</p>
+              </div>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">4. COOKIE CONSENT</h4>
+              <p>Where required by law, nonessential cookies will only be activated after obtaining the appropriate consent.</p>
+              <p>Visitors should be able to review and change their cookie preferences through the website’s cookie management tool.</p>
+              <p>Strictly necessary cookies may operate without consent where permitted by applicable law.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">5. THIRD-PARTY TECHNOLOGIES</h4>
+              <p>Our website may use third-party services that place cookies or similar technologies, including analytics, advertising, ticketing, and embedded media providers.</p>
+              <p>Their practices are governed by their respective privacy policies.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">6. MANAGING COOKIES</h4>
+              <p>You may manage cookies through:</p>
+              <ul class="list-disc list-inside space-y-1 pl-2 text-[#C6CBD3]">
+                <li>Our website’s cookie preference tool, when available.</li>
+                <li>Your browser settings.</li>
+                <li>Your device privacy settings.</li>
+              </ul>
+              <p>Disabling certain cookies may affect website functionality.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">7. CHANGES TO THIS POLICY</h4>
+              <p>We may update this Cookie Policy as our website technologies and legal requirements change.</p>
+            </section>
+
+            <section class="space-y-2 pt-2 border-t border-[#C6CBD3]/15">
+              <h4 class="font-serif text-lg text-white font-medium">8. CONTACT</h4>
+              <div class="p-4 rounded-xl bg-[#080B12] border border-[#C6CBD3]/15 text-xs font-mono space-y-1">
+                <div class="text-white font-sans font-semibold">ECHO FOREVER LLC</div>
+                <div>Email: <a href="mailto:privacy@ECHOforevergroup.com" class="text-[#B9DDF7] underline">privacy@ECHOforevergroup.com</a></div>
+                <div>Website: <a href="https://ECHOforevergroup.com" target="_blank" class="text-[#B9DDF7] underline">ECHOforevergroup.com</a></div>
+              </div>
+            </section>
+          </div>
+        `
+      },
+      'event-terms': {
+        id: 'event-terms',
+        title: 'Event Terms and Conditions',
+        shortTitle: 'Event Terms',
+        effectiveDate: 'November 21, 2026',
+        lastUpdated: 'November 21, 2026',
+        html: `
+          <div class="space-y-6 text-sm text-[#C6CBD3] leading-relaxed">
+            <div class="p-4 rounded-xl bg-[#101827] border border-[#B9DDF7]/25 space-y-1">
+              <div class="text-xs font-mono uppercase tracking-[0.2em] text-[#B9DDF7]">ECHO FOREVER LLC • EVENT TERMS AND CONDITIONS</div>
+              <div class="text-xs text-[#8993A3]">Effective Date: November 21, 2026</div>
+            </div>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">1. GENERAL</h4>
+              <p>These Event Terms and Conditions apply to events, dinners, conferences, networking experiences, cultural gatherings, and other programs organized or presented by ECHO FOREVER LLC.</p>
+              <p>By purchasing a ticket, registering, or attending an ECHO FOREVER event, you agree to the applicable event conditions.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">2. TICKETS AND REGISTRATION</h4>
+              <p>Tickets may be subject to availability, pricing, registration deadlines, and event-specific restrictions.</p>
+              <p>Each ticket grants admission only to the event and admission category specified at purchase.</p>
+              <p>Tickets may not be duplicated, fraudulently transferred, or resold in violation of applicable law or event restrictions.</p>
+              <p>ECHO FOREVER reserves the right to refuse admission where reasonably necessary for safety, security, legal compliance, or enforcement of event rules.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">3. PAYMENTS AND REFUNDS</h4>
+              <p>All ticket prices and applicable fees will be displayed before purchase.</p>
+              <p>Unless otherwise stated in the event listing or required by law, ticket purchases are nonrefundable.</p>
+              <p>If ECHO FOREVER cancels an event, the refund or alternative arrangement will be communicated to registered attendees in accordance with applicable law and the event-specific terms.</p>
+              <p>If an attendee cannot attend, refunds, transfers, or credits will be governed by the event-specific policy.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">4. EVENT CHANGES</h4>
+              <p>ECHO FOREVER reserves the right to make reasonable changes to event schedules, programming, speakers, venues, and other arrangements.</p>
+              <p>If a material change or cancellation occurs, attendees will be notified through the contact information provided during registration.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">5. CONDUCT AND SAFETY</h4>
+              <p>All attendees are expected to behave respectfully and responsibly.</p>
+              <p>Harassment, discrimination, threats, violence, disruptive conduct, and unlawful activity are prohibited.</p>
+              <p>ECHO FOREVER may remove an attendee whose conduct creates a safety concern or materially disrupts the event.</p>
+              <p>Any removal and related ticket treatment will be handled in accordance with applicable law and the event’s stated refund terms.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">6. PHOTOGRAPHY AND RECORDING</h4>
+              <p>ECHO FOREVER may photograph, film, or record events for documentation, promotional, editorial, and archival purposes.</p>
+              <p>Where required, appropriate notice or consent will be provided.</p>
+              <p>If an event involves identifiable close-up photography, interviews, testimonials, or other specific uses of an individual’s image or voice, additional authorization may be requested.</p>
+              <p>Attendees may not record or commercially distribute event content, speakers’ presentations, or other protected materials without permission.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">7. AGE AND IDENTIFICATION</h4>
+              <p>Certain events may have age restrictions or identification requirements.</p>
+              <p>Attendees are responsible for reviewing the applicable event listing before purchasing a ticket.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">8. VENUE RULES</h4>
+              <p>Attendees must comply with the rules and safety requirements of the venue.</p>
+              <p>ECHO FOREVER does not control all venue operations, third-party services, or the actions of other attendees.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">9. ACCESSIBILITY AND ACCOMMODATIONS</h4>
+              <p>ECHO FOREVER seeks to make its events accessible.</p>
+              <p>Attendees requiring reasonable accommodations are encouraged to contact the event team in advance so that appropriate arrangements can be considered.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">10. PERSONAL PROPERTY</h4>
+              <p>Attendees are responsible for their personal belongings.</p>
+              <p>ECHO FOREVER is not responsible for lost, stolen, or damaged personal property except where responsibility cannot legally be excluded.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">11. ASSUMPTION OF ORDINARY EVENT RISKS</h4>
+              <p>Attendance at an event may involve ordinary risks associated with travel, crowds, entertainment, food, beverages, and venue activities.</p>
+              <p>Attendees should exercise reasonable care and follow safety instructions.</p>
+              <p>Nothing in these Terms waives legal rights or remedies that cannot lawfully be waived.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">12. THIRD-PARTY SERVICES</h4>
+              <p>Events may involve independent venues, caterers, performers, transportation providers, sponsors, and other third parties.</p>
+              <p>Those providers may have separate rules and conditions.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">13. EVENT CANCELLATION OR INTERRUPTION</h4>
+              <p>ECHO FOREVER may cancel, postpone, relocate, or interrupt an event when circumstances reasonably require it, including emergencies, venue closures, safety concerns, or circumstances beyond reasonable control.</p>
+              <p>Any refund, credit, or alternative arrangement will be handled in accordance with applicable law and the event-specific terms.</p>
+            </section>
+
+            <section class="space-y-2 pt-2 border-t border-[#C6CBD3]/15">
+              <h4 class="font-serif text-lg text-white font-medium">14. CONTACT</h4>
+              <div class="p-4 rounded-xl bg-[#080B12] border border-[#C6CBD3]/15 text-xs font-mono space-y-1">
+                <div class="text-white font-sans font-semibold">ECHO FOREVER LLC</div>
+                <div>Event Contact: <a href="mailto:events@ECHOforevergroup.com" class="text-[#B9DDF7] underline">events@ECHOforevergroup.com</a></div>
+                <div>Website: <a href="https://ECHOforevergroup.com" target="_blank" class="text-[#B9DDF7] underline">ECHOforevergroup.com</a></div>
+              </div>
+            </section>
+          </div>
+        `
+      },
+      'foundation-disclaimer': {
+        id: 'foundation-disclaimer',
+        title: 'Echo Foundation — Charitable Initiative Disclaimer',
+        shortTitle: 'Foundation Disclaimer',
+        effectiveDate: 'November 21, 2026',
+        lastUpdated: 'November 21, 2026',
+        html: `
+          <div class="space-y-6 text-sm text-[#C6CBD3] leading-relaxed">
+            <div class="p-4 rounded-xl bg-[#201C16] border border-[#C7AD7A]/40 space-y-1">
+              <div class="text-xs font-mono uppercase tracking-[0.2em] text-[#C7AD7A]">ECHO FOREVER LLC • ECHO FOUNDATION DISCLAIMER</div>
+              <div class="text-xs text-[#8993A3]">Effective Date: November 21, 2026</div>
+            </div>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">1. PURPOSE</h4>
+              <p>ECHO FOREVER believes in building a lasting connection between culture, opportunity, leadership, and community impact.</p>
+              <p>The ECHO FOUNDATION name represents a proposed charitable and community-impact initiative intended to support meaningful programs, including education, youth development, cultural preservation, and community advancement.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">2. SEPARATE BUSINESS AND CHARITABLE ACTIVITIES</h4>
+              <p>ECHO FOREVER LLC is a for-profit business entity.</p>
+              <p>The ECHO FOUNDATION initiative is intended to operate separately from the commercial activities of ECHO FOREVER LLC.</p>
+              <p>References to ECHO FOUNDATION do not, by themselves, establish a separate nonprofit corporation, charitable trust, or tax-exempt organization.</p>
+              <p>Any future charitable organization will require appropriate legal formation, governance, financial controls, and regulatory compliance.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">3. TAX-DEDUCTIBILITY</h4>
+              <p>Unless a legally qualified charitable organization is established and the applicable requirements are satisfied, contributions associated with an initiative should not be represented as tax-deductible donations.</p>
+              <p>Individuals and organizations should consult their tax advisers regarding the treatment of any contribution.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">4. CONTRIBUTIONS AND FUNDRAISING</h4>
+              <p>Any future charitable fundraising campaign should clearly identify:</p>
+              <ul class="list-disc list-inside space-y-1 pl-2 text-[#C6CBD3]">
+                <li>The legal recipient of contributions.</li>
+                <li>The purpose of the campaign.</li>
+                <li>How funds are expected to be used.</li>
+                <li>Any applicable administrative expenses.</li>
+                <li>Whether contributions are refundable.</li>
+                <li>The organization responsible for receiving and managing funds.</li>
+              </ul>
+              <p>ECHO FOREVER will not represent that a contribution is tax-deductible without appropriate legal and tax confirmation.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">5. USE OF NAME AND BRAND</h4>
+              <p>The ECHO FOUNDATION name and related materials may be protected by intellectual property rights.</p>
+              <p>No person may independently solicit funds, represent themselves as an authorized representative, or use the ECHO FOUNDATION name without written authorization.</p>
+            </section>
+
+            <section class="space-y-2">
+              <h4 class="font-serif text-lg text-white font-medium">6. PARTNERSHIPS</h4>
+              <p>ECHO FOREVER may work with established nonprofit organizations, educational institutions, community organizations, and other qualified partners.</p>
+              <p>Any formal charitable partnership will be governed by appropriate written agreements.</p>
+            </section>
+
+            <section class="space-y-2 pt-2 border-t border-[#C7AD7A]/20">
+              <h4 class="font-serif text-lg text-white font-medium">7. CONTACT</h4>
+              <div class="p-4 rounded-xl bg-[#080B12] border border-[#C7AD7A]/30 text-xs font-mono space-y-1">
+                <div class="text-white font-sans font-semibold">ECHO FOREVER LLC</div>
+                <div>Foundation Contact: <a href="mailto:foundation@ECHOforevergroup.com" class="text-[#C7AD7A] underline">foundation@ECHOforevergroup.com</a></div>
+                <div>Website: <a href="https://ECHOforevergroup.com" target="_blank" class="text-[#C7AD7A] underline">ECHOforevergroup.com</a></div>
+              </div>
+            </section>
+          </div>
+        `
+      }
+    };
+
+    function openLegalModal(docType = 'terms') {
+      const doc = LEGAL_DOCUMENTS[docType] || LEGAL_DOCUMENTS['terms'];
       const root = document.getElementById('modal-root');
+      if (!root) return;
+
+      const docKeys = [
+        { id: 'terms', label: 'Terms of Use' },
+        { id: 'privacy', label: 'Privacy Policy' },
+        { id: 'cookies', label: 'Cookie Policy' },
+        { id: 'event-terms', label: 'Event Terms' },
+        { id: 'foundation-disclaimer', label: 'Foundation Disclaimer' }
+      ];
+
+      const isFoundationDoc = doc.id === 'foundation-disclaimer';
+
       root.innerHTML = `
-        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#080B12]/85 backdrop-blur-xl">
-          <div class="relative w-full max-w-2xl rounded-3xl glass-panel p-6 sm:p-10 max-h-[85vh] overflow-y-auto space-y-6">
-            <div class="flex items-center justify-between border-b border-[#C6CBD3]/15 pb-4">
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#080B12]/90 backdrop-blur-2xl overflow-y-auto">
+          <div class="relative w-full max-w-4xl rounded-3xl ${isFoundationDoc ? 'glass-panel-gold border-[#C7AD7A]/40' : 'glass-panel border-[#B9DDF7]/30'} p-5 sm:p-8 lg:p-10 max-h-[90vh] overflow-y-auto space-y-6 my-6 shadow-2xl">
+            
+            <!-- Top Control Bar -->
+            <div class="flex items-center justify-between border-b border-[#C6CBD3]/15 pb-4 gap-4">
               <div class="flex items-center gap-3">
-                <button onclick="closeModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#101827] border border-white/10 text-xs font-mono uppercase tracking-wider text-[#B9DDF7] hover:text-white cursor-pointer group">
+                <button onclick="closeModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#101827] border border-white/10 text-xs font-mono uppercase tracking-wider text-[#B9DDF7] hover:text-white hover:border-[#B9DDF7]/40 transition-colors cursor-pointer group">
                   <i data-lucide="arrow-left" class="w-3.5 h-3.5 transform group-hover:-translate-x-1 transition-transform"></i>
                   <span>Back</span>
                 </button>
                 <div>
-                  <div class="text-[10px] font-mono uppercase tracking-[0.2em] text-[#B9DDF7]">ECHO FOREVER LLC • LEGAL GOVERNANCE</div>
-                  <h3 class="font-serif text-2xl sm:text-3xl text-white">${isPrivacy ? 'Privacy Policy' : 'Terms of Use'}</h3>
+                  <div class="text-[10px] font-mono uppercase tracking-[0.2em] ${isFoundationDoc ? 'text-[#C7AD7A]' : 'text-[#B9DDF7]'}">ECHO FOREVER LLC • LEGAL & GOVERNANCE PORTAL</div>
+                  <h3 class="font-serif text-2xl sm:text-3xl text-white font-medium">${doc.title}</h3>
                 </div>
               </div>
-              <button onclick="closeModal()" class="p-2 rounded-full bg-[#080B12] text-[#C6CBD3] hover:text-white cursor-pointer" aria-label="Close modal">
+              <button onclick="closeModal()" class="p-2.5 rounded-full bg-[#080B12] text-[#C6CBD3] hover:text-white border border-white/10 cursor-pointer" aria-label="Close modal">
                 <i data-lucide="x" class="w-5 h-5"></i>
               </button>
             </div>
 
-            ${
-              isPrivacy
-                ? `
-                <div class="space-y-4 text-xs sm:text-sm text-[#C6CBD3] leading-relaxed">
-                  <p><strong>1. Data Collection & Purpose:</strong> Echo Forever LLC collects personal information voluntarily submitted through our inquiry, event registration, membership nomination, and newsletter forms solely to respond to communications and manage institutional relationships.</p>
-                  <p><strong>2. Data Ownership & Confidentiality:</strong> All attendee, partner, and inquiry data is strictly owned by Echo Forever LLC. We do not sell, rent, or commercialize personal contact records to third-party data brokers.</p>
-                  <p><strong>3. Security & Retention:</strong> We employ industry-standard encryption and access controls to safeguard correspondence. You may request access to or deletion of your contact records at any time via our Contact portal.</p>
-                </div>
-                `
-                : `
-                <div class="space-y-4 text-xs sm:text-sm text-[#C6CBD3] leading-relaxed">
-                  <p><strong>1. Institutional Presentation:</strong> This website serves as the corporate headquarters of Echo Forever LLC and presents our current active division (Echo Experiences) alongside developing platforms.</p>
-                  <p><strong>2. No Investment or Charitable Solicitation:</strong> Nothing on this website constitutes an offer to sell securities, regulated investment advice, or public charitable solicitation prior to applicable regulatory filings.</p>
-                  <p><strong>3. Intellectual Property:</strong> The Echo Forever name, EF monogram, “Where Culture Meets Capital” tagline, copy, and visual design architecture are the exclusive property of Echo Forever LLC.</p>
-                </div>
-                `
-            }
+            <!-- Tab Switcher Navigation Pills -->
+            <div class="flex flex-wrap gap-2 pb-2 border-b border-[#C6CBD3]/10">
+              ${docKeys.map(k => `
+                <button
+                  onclick="openLegalModal('${k.id}')"
+                  class="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all cursor-pointer border ${
+                    doc.id === k.id
+                      ? (k.id === 'foundation-disclaimer' ? 'bg-[#C7AD7A] text-[#080B12] border-[#C7AD7A] font-semibold shadow-[0_0_15px_rgba(199,173,122,0.3)]' : 'bg-[#B9DDF7] text-[#080B12] border-[#B9DDF7] font-semibold shadow-[0_0_15px_rgba(185,221,247,0.3)]')
+                      : 'bg-[#101827]/70 text-[#C6CBD3] border-white/10 hover:border-[#B9DDF7]/40 hover:text-white'
+                  }"
+                >
+                  ${k.label}
+                </button>
+              `).join('')}
+            </div>
 
-            <div class="pt-4 border-t border-[#C6CBD3]/15 flex justify-end">
-              <button onclick="closeModal()" class="px-6 py-2.5 rounded-full bg-[#B9DDF7] text-[#080B12] text-xs font-semibold uppercase tracking-[0.14em] cursor-pointer">
-                Acknowledge & Close
-              </button>
+            <!-- Body Document Content -->
+            <div class="pt-2">
+              ${doc.html}
+            </div>
+
+            <!-- Modal Bottom Control Actions -->
+            <div class="pt-6 border-t border-[#C6CBD3]/15 flex flex-wrap items-center justify-between gap-4 text-xs text-[#8993A3]">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full ${isFoundationDoc ? 'bg-[#C7AD7A]' : 'bg-[#B9DDF7]'}"></span>
+                <span>Official Institutional Record • ECHO FOREVER LLC</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="closeModal(); navigateTo('contact', { inquiryCategory: 'General Correspondence' });" class="px-4 py-2 rounded-full bg-[#101827] text-white border border-white/15 hover:border-[#B9DDF7] cursor-pointer">
+                  Direct Inquiry Desk
+                </button>
+                <button onclick="closeModal()" class="px-5 py-2 rounded-full ${isFoundationDoc ? 'bg-gradient-to-r from-[#C7AD7A] to-[#DFC89B]' : 'bg-[#B9DDF7]'} text-[#080B12] font-semibold uppercase tracking-wider cursor-pointer">
+                  Acknowledge & Close
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -44,6 +44,14 @@ This enterprise web portal is built with modern web standards, delivering 60fps 
 - **Scroll-Triggered Kinetic Typography**: Reusable 3D character-by-character reveal engine (`buildKineticHeadlineHTML`) paired with an optimized `IntersectionObserver` (`threshold: 0.25`, `rootMargin: '0px 0px -60px 0px'`) animating:
   - **Section 02 Institutional Ethos Pull-Quote**: *“One parent company. Multiple business platforms. Shared vision. Lasting impact.”*
   - **Section 08 Call to Action**: *"LET’S BUILD SOMETHING THAT LASTS."* with sky-blue gradient highlights on `"BUILD"` and `"LASTS."`.
+- **Institutional Legal & Governance Portal**:
+  - Interactive multi-tab governance reader displaying official complete legal instruments:
+    1. **Website Terms of Use** (16 regulatory sections)
+    2. **Privacy Policy** (15 data protection sections)
+    3. **Cookie Policy** (8 tracking governance sections)
+    4. **Event Terms and Conditions** (14 attendance & safety sections)
+    5. **Echo Foundation — Charitable Initiative Disclaimer** (7 stewardship disclosure sections)
+  - Direct hash-routing (`#terms`, `#privacy`, `#cookies`, `#event-terms`, `#foundation-disclaimer`) with seamless back navigation.
 - **Micro-Interactions & Telemetry**:
   - Interactive radial spotlight cursor tracking on glass and bento panels.
   - Physics-based magnetic CTAs.
