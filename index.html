@@ -887,28 +887,9 @@
     // 4. VIEW TEMPLATES (ALL 9 PAGES)
     // ==========================================================================
 
-    // Helper to render an on-screen back arrow navigation bar on sub-pages
-    function renderSubpageBackBar(currentTitle = '') {
-      const isFound = state.activePage === 'foundation';
-      const borderClass = isFound
-        ? 'border-[#C7AD7A]/40 text-[#C7AD7A] hover:border-[#C7AD7A] hover:bg-[#C7AD7A]/10'
-        : 'border-white/15 text-[#C6CBD3] hover:text-[#B9DDF7] hover:border-[#B9DDF7]/50 hover:bg-[#101827]';
-      const indicatorClass = isFound ? 'text-[#C7AD7A]' : 'text-[#8993A3]';
-
-      return `
-        <div data-aos="fade-down" class="mb-8 flex items-center justify-between gap-4">
-          <button
-            onclick="goBack()"
-            class="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel ${borderClass} text-xs uppercase tracking-[0.18em] transition-all cursor-pointer shadow-lg hover:shadow-[0_0_20px_rgba(185,221,247,0.15)]"
-            title="Return to previous screen (Arrow Back)"
-            aria-label="Return to previous screen"
-          >
-            <i data-lucide="arrow-left" class="w-4 h-4 transform group-hover:-translate-x-1.5 transition-transform duration-300"></i>
-            <span>Back to Previous Screen</span>
-          </button>
-          ${currentTitle ? `<span class="hidden sm:inline text-[11px] font-mono tracking-[0.2em] ${indicatorClass} uppercase">ECHO FOREVER • ${currentTitle}</span>` : ''}
-        </div>
-      `;
+    // Helper function for subpage headers (on-screen back button removed per design; native browser arrow back & swipe-to-back handle navigation)
+    function renderSubpageBackBar() {
+      return '';
     }
 
     // --- VIEW 1: HOMEPAGE (9 SECTIONS) ---
@@ -1567,7 +1548,6 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-            ${renderSubpageBackBar('ABOUT & PHILOSOPHY')}
             <div data-aos="fade-down" class="max-w-4xl">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#B9DDF7] mb-6">
                 <span>ABOUT ECHO FOREVER LLC</span>
@@ -1729,7 +1709,6 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-            ${renderSubpageBackBar('OUR ECOSYSTEM')}
             <div data-aos="fade-down" class="max-w-4xl">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#B9DDF7] mb-6">
                 <span>HOUSE OF BRANDS ARCHITECTURE</span>
@@ -1759,7 +1738,6 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-            ${renderSubpageBackBar('ECHO EXPERIENCES')}
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
               <div data-aos="fade-right" class="lg:col-span-8 space-y-6">
                 <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#B9DDF7]/15 border border-[#B9DDF7]/40 text-xs uppercase tracking-[0.2em] text-[#B9DDF7]">
@@ -1873,7 +1851,6 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-            ${renderSubpageBackBar('ECHO COLLECTIVE')}
             <div data-aos="fade-down" class="max-w-4xl space-y-6">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#78BCEB]">
                 <span>PILLAR 02 • PRIVATE NETWORK & COMMUNITY</span>
@@ -1964,7 +1941,6 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-            ${renderSubpageBackBar('ECHO VENTURES')}
             <div data-aos="fade-down" class="max-w-4xl space-y-6">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#C6CBD3]">
                 <span>PILLAR 03 • VENTURE & PARTNERSHIP PLATFORM</span>
@@ -2062,7 +2038,6 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-            ${renderSubpageBackBar('ECHO JOURNAL')}
             <div data-aos="fade-down" class="max-w-4xl space-y-6">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#B9DDF7]">
                 <span>PILLAR 04 • EDITORIAL & CULTURAL INTELLIGENCE</span>
@@ -2170,7 +2145,6 @@
       return `
         <div class="py-16 lg:py-24">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-            ${renderSubpageBackBar('ECHO FOUNDATION')}
             <div data-aos="fade-down" class="max-w-4xl space-y-6">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C7AD7A]/15 border border-[#C7AD7A]/40 text-xs uppercase tracking-[0.2em] text-[#C7AD7A]">
                 <span>PILLAR 05 • PHILANTHROPY & SOCIAL IMPACT</span>
@@ -2249,7 +2223,6 @@
       return `
         <div class="py-6 sm:py-8 lg:py-10 min-h-[calc(100vh-4rem)] flex flex-col justify-center">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full space-y-6">
-            ${renderSubpageBackBar('COMMUNICATIONS & INQUIRIES')}
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
               <!-- Left Column: Compact Corporate Header & Routing Directory -->
               <div data-aos="fade-right" class="lg:col-span-5 space-y-4 sm:space-y-5">
