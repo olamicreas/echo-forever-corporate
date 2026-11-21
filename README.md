@@ -65,8 +65,16 @@ This enterprise web portal is built with modern web standards, delivering 60fps 
 
 ```
 echo-forever-corporate/
-├── index.html       # Complete institutional single-page application & motion engine
-└── README.md        # Corporate architecture & engineering documentation
+├── index.html                   # Complete institutional single-page application & motion engine
+├── favicon.svg                  # Vector EF monogram browser tab icon
+├── favicon.ico                  # Multi-resolution ICO desktop tab icon
+├── favicon-32x32.png            # Standard high-DPI browser favicon
+├── favicon-16x16.png            # Standard legacy browser favicon
+├── apple-touch-icon.png         # iOS / iPadOS Safari home screen icon (180x180)
+├── android-chrome-192x192.png   # Android web app icon
+├── android-chrome-512x512.png   # High-resolution PWA splash icon
+├── site.webmanifest             # Web application manifest configuration
+└── README.md                    # Corporate architecture & engineering documentation
 ```
 
 ---
