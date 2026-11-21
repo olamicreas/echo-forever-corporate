@@ -414,6 +414,13 @@
             <span>Connect With Us</span>
             <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
           </button>
+          <div class="pt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-xs text-[#8993A3] border-t border-white/5">
+            <a href="#terms" onclick="event.preventDefault(); toggleMobileMenu(); openLegalModal('terms');" class="hover:text-white underline underline-offset-2">Terms of Use</a>
+            <span>•</span>
+            <a href="#privacy" onclick="event.preventDefault(); toggleMobileMenu(); openLegalModal('privacy');" class="hover:text-white underline underline-offset-2">Privacy Policy</a>
+            <span>•</span>
+            <a href="#cookies" onclick="event.preventDefault(); toggleMobileMenu(); openLegalModal('cookies');" class="hover:text-white underline underline-offset-2">Cookies</a>
+          </div>
         </div>
       </div>
     </div>
@@ -464,6 +471,7 @@
             <li><button onclick="navigateTo('ecosystem')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">Our Ecosystem</button></li>
             <li><button onclick="navigateTo('journal')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">Echo Journal</button></li>
             <li><button onclick="navigateTo('contact')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">Inquiries & Contact</button></li>
+            <li><a href="#terms" onclick="event.preventDefault(); openLegalModal('terms');" class="text-[#8993A3] hover:text-[#B9DDF7] transition-colors cursor-pointer inline-flex items-center gap-1.5"><span>Legal & Terms</span><i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#B9DDF7]"></i></a></li>
           </ul>
         </div>
 
@@ -518,21 +526,21 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-x-6 gap-y-2 shrink-0">
-          <button onclick="openLegalModal('terms')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
+          <a href="#terms" onclick="event.preventDefault(); openLegalModal('terms')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
             Terms of Use
-          </button>
-          <button onclick="openLegalModal('privacy')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
+          </a>
+          <a href="#privacy" onclick="event.preventDefault(); openLegalModal('privacy')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
             Privacy Policy
-          </button>
-          <button onclick="openLegalModal('cookies')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
+          </a>
+          <a href="#cookies" onclick="event.preventDefault(); openLegalModal('cookies')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
             Cookie Policy
-          </button>
-          <button onclick="openLegalModal('event-terms')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
+          </a>
+          <a href="#event-terms" onclick="event.preventDefault(); openLegalModal('event-terms')" class="hover:text-white transition-colors cursor-pointer underline underline-offset-4">
             Event Terms
-          </button>
-          <button onclick="openLegalModal('foundation-disclaimer')" class="hover:text-[#C7AD7A] text-[#8993A3] transition-colors cursor-pointer underline underline-offset-4">
+          </a>
+          <a href="#foundation-disclaimer" onclick="event.preventDefault(); openLegalModal('foundation-disclaimer')" class="hover:text-[#C7AD7A] text-[#8993A3] transition-colors cursor-pointer underline underline-offset-4">
             Foundation Disclaimer
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -2525,10 +2533,18 @@
 
     // Browser Arrow Back / Forward (Popstate) Listener
     window.addEventListener('popstate', (e) => {
-      // If modal is open, close it
       const modalRoot = document.getElementById('modal-root');
+      const hashPage = window.location.hash.replace(/^#\/?/, '');
+      const legalKeys = ['terms', 'privacy', 'cookies', 'event-terms', 'foundation-disclaimer'];
+
+      if (legalKeys.includes(hashPage)) {
+        openLegalModal(hashPage, false);
+        return;
+      }
+
+      // If modal is open and we navigated back, close it cleanly
       if (modalRoot && modalRoot.children.length > 0) {
-        closeModal();
+        closeModal(false);
         return;
       }
 
@@ -2539,7 +2555,6 @@
         targetPage = e.state.page;
         if (e.state.inquiryCategory) targetCategory = e.state.inquiryCategory;
       } else if (window.location.hash) {
-        const hashPage = window.location.hash.replace(/^#\/?/, '');
         if (NAV_ITEMS.some(item => item.id === hashPage) || hashPage === 'home') {
           targetPage = hashPage;
         }
@@ -3005,9 +3020,18 @@
     }
 
     // --- MODALS (EVENT RSVP, ARTICLE READER, LEGAL POLICIES) ---
-    function closeModal() {
+    function closeModal(updateHash = true) {
       const root = document.getElementById('modal-root');
       if (root) root.innerHTML = '';
+
+      if (updateHash) {
+        const legalKeys = ['terms', 'privacy', 'cookies', 'event-terms', 'foundation-disclaimer'];
+        const currentHash = window.location.hash.replace(/^#\/?/, '');
+        if (legalKeys.includes(currentHash)) {
+          const targetUrl = state.activePage === 'home' ? window.location.pathname : `${window.location.pathname}#${state.activePage}`;
+          window.history.pushState({ page: state.activePage, inquiryCategory: state.inquiryCategory }, '', targetUrl);
+        }
+      }
     }
 
     function openEventModal(eventId) {
@@ -3784,10 +3808,17 @@
       }
     };
 
-    function openLegalModal(docType = 'terms') {
+    function openLegalModal(docType = 'terms', pushHistory = true) {
       const doc = LEGAL_DOCUMENTS[docType] || LEGAL_DOCUMENTS['terms'];
       const root = document.getElementById('modal-root');
       if (!root) return;
+
+      if (pushHistory) {
+        const targetHash = `#${doc.id}`;
+        if (window.location.hash !== targetHash) {
+          window.history.pushState({ modal: doc.id, page: state.activePage }, '', targetHash);
+        }
+      }
 
       const docKeys = [
         { id: 'terms', label: 'Terms of Use' },
@@ -3824,7 +3855,7 @@
             <div class="flex flex-wrap gap-2 pb-2 border-b border-[#C6CBD3]/10">
               ${docKeys.map(k => `
                 <button
-                  onclick="openLegalModal('${k.id}')"
+                  onclick="openLegalModal('${k.id}', true)"
                   class="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all cursor-pointer border ${
                     doc.id === k.id
                       ? (k.id === 'foundation-disclaimer' ? 'bg-[#C7AD7A] text-[#080B12] border-[#C7AD7A] font-semibold shadow-[0_0_15px_rgba(199,173,122,0.3)]' : 'bg-[#B9DDF7] text-[#080B12] border-[#B9DDF7] font-semibold shadow-[0_0_15px_rgba(185,221,247,0.3)]')
