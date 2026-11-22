@@ -6,11 +6,10 @@
   <title>ECHO FOREVER LLC — Where Culture Meets Capital</title>
   <meta name="description" content="ECHO FOREVER LLC is a diversified parent company connecting culture, business, entrepreneurship, and community through a growing ecosystem of platforms and initiatives." />
 
-  <!-- App Icon & Browser Tab Favicon (EF Monogram) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23101827' stroke='%23B9DDF7' stroke-opacity='0.4' stroke-width='1.8'/%3E%3Cpath d='M10 12H26M10 24H22M10 36H26M10 12V36' stroke='%23FFFFFF' stroke-width='2.8' stroke-linecap='square'/%3E%3Cpath d='M26 12H38M26 24H35M26 12V36' stroke='%23B9DDF7' stroke-width='2.8' stroke-linecap='square'/%3E%3C/svg%3E" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <!-- App Icon & Browser Tab Favicon (Actual 3D EF Monogram Logo) -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="shortcut icon" href="favicon.ico" />
   <link rel="manifest" href="site.webmanifest" />
@@ -320,10 +319,154 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #253045;
     }
+
+    /* =========================================================================
+       LUXURY INSTITUTIONAL PRELOADER ANIMATIONS
+       ========================================================================= */
+    #app-preloader {
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.75s ease;
+    }
+    #app-preloader.preloader-exit {
+      opacity: 0 !important;
+      transform: scale(1.04) !important;
+      visibility: hidden;
+      pointer-events: none !important;
+    }
+
+    @keyframes preloaderLogoPulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 14px rgba(86, 182, 247, 0.5));
+      }
+      50% {
+        transform: scale(1.04);
+        filter: drop-shadow(0 0 24px rgba(86, 182, 247, 0.85)) drop-shadow(0 0 35px rgba(185, 221, 247, 0.4));
+      }
+    }
+    .preloader-logo-pulse {
+      animation: preloaderLogoPulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes preloaderAmbientPulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.22;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.18);
+        opacity: 0.38;
+      }
+    }
+    .preloader-ambient-glow {
+      animation: preloaderAmbientPulse 3.2s ease-in-out infinite;
+    }
+
+    @keyframes preloaderRingPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+      }
+    }
+    .preloader-ring-pulse {
+      animation: preloaderRingPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes preloaderRingSlow {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    .preloader-ring-slow {
+      animation: preloaderRingSlow 20s linear infinite;
+    }
+
+    @keyframes preloaderShimmer {
+      0% {
+        transform: translateX(-120%) rotate(25deg);
+      }
+      100% {
+        transform: translateX(220%) rotate(25deg);
+      }
+    }
+    .preloader-shimmer-sweep {
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15) 45%,
+        rgba(185, 221, 247, 0.35) 50%,
+        rgba(255, 255, 255, 0.15) 55%,
+        transparent
+      );
+      width: 140%;
+      height: 100%;
+      animation: preloaderShimmer 2.2s ease-in-out infinite;
+    }
   </style>
 </head>
 
 <body class="min-h-screen bg-[#080B12] text-white selection:bg-[#B9DDF7] selection:text-[#080B12]">
+
+  <!-- =========================================================================
+       LUXURY INSTITUTIONAL SCREEN PRELOADER
+       ECHO FOREVER LLC • WHERE CULTURE MEETS CAPITAL
+       ========================================================================= -->
+  <div id="app-preloader" class="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#06080E] text-white overflow-hidden select-none" aria-label="Loading Echo Forever LLC Ecosystem">
+    <!-- Ambient Depth Background Glows -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[520px] rounded-full preloader-ambient-glow" style="background: radial-gradient(circle, rgba(86,182,247,0.3) 0%, rgba(30,64,175,0.18) 45%, transparent 70%);"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] rounded-full opacity-15 blur-[90px]" style="background: radial-gradient(circle, #C7AD7A 0%, transparent 70%);"></div>
+      <!-- Fine Dot Grid Matrix -->
+      <div class="absolute inset-0 opacity-[0.035] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]"></div>
+    </div>
+
+    <!-- Central Preloader Content Container -->
+    <div class="relative z-10 flex flex-col items-center text-center px-6 max-w-sm sm:max-w-md w-full">
+      <!-- 3D Monogram Logo with Breathing Rings & Shimmer -->
+      <div class="relative mb-6 sm:mb-8">
+        <!-- Outer Concentric Breathing Rings -->
+        <div class="absolute -inset-4 sm:-inset-5 rounded-3xl border border-[#56B6F7]/25 preloader-ring-pulse pointer-events-none"></div>
+        <div class="absolute -inset-8 sm:-inset-10 rounded-full border border-dashed border-white/10 preloader-ring-slow pointer-events-none"></div>
+
+        <!-- Glassmorphic Emblem Pod -->
+        <div class="w-24 h-24 sm:w-28 sm:h-28 relative rounded-3xl p-0.5 bg-gradient-to-b from-[#B9DDF7]/50 via-white/15 to-[#56B6F7]/25 shadow-[0_0_50px_rgba(86,182,247,0.35)] backdrop-blur-xl">
+          <div class="w-full h-full rounded-[22px] bg-gradient-to-b from-[#101827] via-[#080B12] to-[#04060A] flex items-center justify-center p-3 relative overflow-hidden">
+            <!-- Shimmer Light Streak across Logo -->
+            <div class="preloader-shimmer-sweep absolute inset-0 pointer-events-none"></div>
+            <!-- The Actual 3D Chrome & Blue EF Logo -->
+            <img src="assets/logo.png" alt="ECHO FOREVER LLC" class="w-full h-full object-contain filter drop-shadow-[0_0_16px_rgba(86,182,247,0.65)] preloader-logo-pulse" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography Lockup -->
+      <div class="space-y-1.5 mb-6 sm:mb-7">
+        <h2 class="text-sm sm:text-base font-semibold tracking-[0.28em] text-white uppercase font-sans">
+          ECHO FOREVER LLC
+        </h2>
+        <div class="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.24em] text-[#B9DDF7]/85" id="preloader-status-text">
+          WHERE CULTURE MEETS CAPITAL
+        </div>
+      </div>
+
+      <!-- High-Precision Telemetry Progress Laser Bar -->
+      <div class="w-full max-w-[280px] space-y-2.5">
+        <div class="w-full h-[2.5px] bg-white/10 rounded-full overflow-hidden relative">
+          <div id="preloader-progress-bar" class="h-full bg-gradient-to-r from-[#C7AD7A] via-[#56B6F7] to-[#B9DDF7] rounded-full transition-all duration-100 ease-out shadow-[0_0_12px_rgba(86,182,247,0.85)]" style="width: 0%;"></div>
+        </div>
+        <div class="flex items-center justify-between text-[10px] font-mono tracking-widest text-[#8993A3]">
+          <span id="preloader-step-label" class="uppercase">SYSTEM CALIBRATION</span>
+          <span id="preloader-counter" class="text-[#B9DDF7] font-semibold tabular-nums">00%</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ==========================================================================
        TOP SCROLL PROGRESS LASER BEAM & FLOATING TELEMETRY RAIL
@@ -363,11 +506,8 @@
         </button>
 
         <button onclick="navigateTo('home')" class="flex items-center gap-3 text-left group cursor-pointer focus:outline-none" aria-label="ECHO FOREVER Home">
-          <div id="header-monogram" class="w-10 h-10 relative inline-flex items-center justify-center rounded-xl border border-[#B9DDF7]/30 bg-[#101827]/90 text-white shadow-inner transition-all duration-500 group-hover:border-[#B9DDF7]/70 group-hover:shadow-[0_0_20px_rgba(185,221,247,0.2)]">
-            <svg viewBox="0 0 48 48" fill="none" class="w-3/5 h-3/5" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 12H26M10 24H22M10 36H26M10 12V36" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" />
-              <path id="header-monogram-accent" d="M26 12H38M26 24H35M26 12V36" stroke="#B9DDF7" stroke-width="2.5" stroke-linecap="square" />
-            </svg>
+          <div id="header-monogram" class="w-10 h-10 relative inline-flex items-center justify-center rounded-xl border border-[#B9DDF7]/30 bg-[#101827]/90 p-1 overflow-hidden shadow-inner transition-all duration-500 group-hover:border-[#B9DDF7]/70 group-hover:shadow-[0_0_20px_rgba(185,221,247,0.35)]">
+            <img src="assets/logo.png" alt="ECHO FOREVER LLC" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(185,221,247,0.45)]" />
           </div>
           <span class="text-sm sm:text-base font-semibold tracking-[0.24em] text-white group-hover:text-[#B9DDF7] transition-colors whitespace-nowrap">
             ECHO FOREVER
@@ -435,11 +575,8 @@
         <!-- Column 1: Brand Identity (5 cols) -->
         <div class="lg:col-span-5 space-y-6">
           <div class="flex items-center gap-3.5">
-            <div class="w-11 h-11 relative inline-flex items-center justify-center rounded-lg border border-[#B9DDF7]/30 bg-[#101827]/90 text-white shadow-inner">
-              <svg viewBox="0 0 48 48" fill="none" class="w-3/5 h-3/5" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 12H26M10 24H22M10 36H26M10 12V36" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" />
-                <path d="M26 12H38M26 24H35M26 12V36" stroke="#B9DDF7" stroke-width="2.5" stroke-linecap="square" />
-              </svg>
+            <div class="w-11 h-11 relative inline-flex items-center justify-center rounded-xl border border-[#B9DDF7]/35 bg-[#101827]/90 p-1 overflow-hidden shadow-[0_0_20px_rgba(185,221,247,0.2)]">
+              <img src="assets/logo.png" alt="ECHO FOREVER LLC" class="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(185,221,247,0.4)]" />
             </div>
             <div>
               <div class="text-base font-semibold tracking-[0.22em] text-white">
@@ -1256,13 +1393,10 @@
           <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-8 sm:mt-12 my-auto flex flex-col justify-center">
             <!-- Clean EF Monogram Crown with Pulsing Halo -->
             <div data-aos="fade-down" class="mb-4 sm:mb-6 flex justify-center">
-              <div class="relative inline-flex items-center justify-center">
-                <div class="absolute -inset-2 rounded-2xl border border-[#B9DDF7]/25 animate-pulse-ring pointer-events-none"></div>
-                <div class="w-11 h-11 relative inline-flex items-center justify-center rounded-xl border border-[#B9DDF7]/45 bg-[#101827]/90 text-white shadow-[0_0_30px_rgba(185,221,247,0.2)]">
-                  <svg viewBox="0 0 48 48" fill="none" class="w-3/5 h-3/5" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 12H26M10 24H22M10 36H26M10 12V36" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" />
-                    <path d="M26 12H38M26 24H35M26 12V36" stroke="#B9DDF7" stroke-width="2.5" stroke-linecap="square" />
-                  </svg>
+              <div class="relative inline-flex items-center justify-center group">
+                <div class="absolute -inset-2.5 rounded-2xl border border-[#B9DDF7]/30 animate-pulse-ring pointer-events-none"></div>
+                <div class="w-14 h-14 relative inline-flex items-center justify-center rounded-2xl border border-[#B9DDF7]/45 bg-gradient-to-b from-[#101827] to-[#080B12] shadow-[0_0_35px_rgba(185,221,247,0.25)] p-1.5 overflow-hidden">
+                  <img src="assets/logo.png" alt="ECHO FOREVER LLC Monogram" class="w-full h-full object-contain filter drop-shadow-[0_0_12px_rgba(185,221,247,0.55)] transition-transform duration-500 group-hover:scale-105" />
                 </div>
               </div>
             </div>
@@ -1856,11 +1990,8 @@
                 <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full pointer-events-none opacity-20 blur-[90px]" style="background: radial-gradient(circle, #B9DDF7, #78BCEB);"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
                   <div class="lg:col-span-3 flex flex-col items-center sm:items-start text-center sm:text-left">
-                    <div class="w-28 h-28 rounded-2xl border-2 border-[#B9DDF7]/40 bg-[#101827] flex items-center justify-center text-white shadow-[0_0_35px_rgba(185,221,247,0.18)] mb-4">
-                      <svg viewBox="0 0 48 48" fill="none" class="w-14 h-14" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 12H26M10 24H22M10 36H26M10 12V36" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" />
-                        <path d="M26 12H38M26 24H35M26 12V36" stroke="#B9DDF7" stroke-width="2.5" stroke-linecap="square" />
-                      </svg>
+                    <div class="w-28 h-28 rounded-2xl border-2 border-[#B9DDF7]/45 bg-gradient-to-b from-[#101827] to-[#080B12] flex items-center justify-center p-3 shadow-[0_0_40px_rgba(185,221,247,0.22)] mb-4 overflow-hidden group">
+                      <img src="assets/logo.png" alt="Echo Forever Seal" class="w-full h-full object-contain filter drop-shadow-[0_0_16px_rgba(185,221,247,0.5)] transition-transform duration-700 group-hover:scale-105" />
                     </div>
                     <div class="text-[11px] font-mono uppercase tracking-[0.2em] text-[#B9DDF7]">OFFICE OF THE FOUNDER</div>
                     <div class="text-xs text-[#8993A3] mt-0.5">Echo Forever LLC</div>
@@ -2721,12 +2852,14 @@
         }
       }
 
-      if (monogramBox && monogramAccent) {
-        monogramBox.className = `w-10 h-10 relative inline-flex items-center justify-center rounded-lg border transition-all duration-500 shadow-inner ${
+      if (monogramBox) {
+        monogramBox.className = `w-10 h-10 relative inline-flex items-center justify-center rounded-xl border p-1 overflow-hidden transition-all duration-500 shadow-inner ${
           isFoundationPage
-            ? 'border-[#C7AD7A]/40 bg-[#C7AD7A]/10 text-[#C7AD7A]'
-            : 'border-[#B9DDF7]/30 bg-[#101827]/90 text-white'
+            ? 'border-[#C7AD7A]/50 bg-[#C7AD7A]/10 shadow-[0_0_20px_rgba(199,173,122,0.25)]'
+            : 'border-[#B9DDF7]/30 bg-[#101827]/90 shadow-[0_0_20px_rgba(185,221,247,0.2)]'
         }`;
+      }
+      if (monogramAccent) {
         monogramAccent.setAttribute('stroke', isFoundationPage ? '#C7AD7A' : '#B9DDF7');
       }
 
@@ -4282,8 +4415,76 @@
     const footerYear = document.getElementById('footer-year');
     if (footerYear) footerYear.textContent = new Date().getFullYear();
 
+    // ==========================================================================
+    // LUXURY INSTITUTIONAL PRELOADER CONTROLLER
+    // ==========================================================================
+    function initPreloader() {
+      const preloader = document.getElementById('app-preloader');
+      if (!preloader) return;
+
+      const progressBar = document.getElementById('preloader-progress-bar');
+      const counterText = document.getElementById('preloader-counter');
+      const stepLabel = document.getElementById('preloader-step-label');
+
+      // Lock scrolling during preloader playback
+      document.body.style.overflow = 'hidden';
+
+      // Duration calibrated to ~2.2 seconds for theatrical holding company presence
+      const totalDuration = 2200;
+      const startTime = performance.now();
+
+      const telemetrySteps = [
+        { pct: 0, label: 'SYSTEM CALIBRATION' },
+        { pct: 24, label: 'INITIALIZING GOVERNANCE ARCHITECTURE' },
+        { pct: 54, label: 'CALIBRATING FIVE-PILLAR ECOSYSTEM' },
+        { pct: 78, label: 'CONNECTING CULTURE & CAPITAL' },
+        { pct: 96, label: 'HOLDING PLATFORM READY' }
+      ];
+
+      function frame(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / totalDuration);
+        
+        // Easing curve: smooth cubic acceleration and deceleration
+        const eased = progress < 0.5 
+          ? 4 * progress * progress * progress 
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+        const currentPct = Math.min(100, Math.round(eased * 100));
+
+        if (progressBar) progressBar.style.width = `${currentPct}%`;
+        if (counterText) counterText.textContent = `${String(currentPct).padStart(2, '0')}%`;
+
+        // Update step status label based on progress
+        for (let i = telemetrySteps.length - 1; i >= 0; i--) {
+          if (currentPct >= telemetrySteps[i].pct) {
+            if (stepLabel && stepLabel.textContent !== telemetrySteps[i].label) {
+              stepLabel.textContent = telemetrySteps[i].label;
+            }
+            break;
+          }
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          // Completed 100% -> Brief 260ms hold for satisfying completion, then exit
+          setTimeout(() => {
+            preloader.classList.add('preloader-exit');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+              preloader.style.display = 'none';
+            }, 800);
+          }, 260);
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }
+
     // Initial Application Boot
     document.addEventListener('DOMContentLoaded', () => {
+      initPreloader();
       initRouteFromURL();
       renderApp();
     });
