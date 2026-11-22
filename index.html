@@ -1159,7 +1159,7 @@
           num: '05',
           title: 'Social Stewardship',
           subtitle: 'Sustainable Community Impact',
-          desc: 'Economic success carries a foundational obligation. Through Echo Foundation, we invest in community resilience, education, youth leadership, and long-term empowerment in Haiti.'
+          desc: 'Economic success carries a foundational obligation. Through Echo Foundation, we dedicate focus, alliances, and resources toward community resilience, education, youth leadership, and long-term empowerment in Haiti.'
         }
       ].map((item, idx) => `
         <div data-aos="fade-up" style="transition-delay: ${idx * 60}ms" class="py-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-start group">
@@ -2312,7 +2312,7 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div id="journal-articles-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 ${filteredArticles.map(art => `
                   <div
                     onclick="openArticleModal('${art.id}')"
@@ -3210,6 +3210,10 @@
       renderApp();
     }
 
+    function setJournalSearch(val) {
+      handleJournalSearch(val);
+    }
+
     function handleJournalSearch(val) {
       state.journalSearch = val;
       const categories = ['All', 'Institutional Dispatch', 'Echo Experiences', 'Echo Foundation', 'Ventures & Strategy'];
@@ -3222,35 +3226,45 @@
 
       const grid = document.getElementById('journal-articles-grid');
       if (grid) {
-        grid.innerHTML = filtered.map(art => `
-          <article
-            onclick="openArticleModal('${art.id}')"
-            class="group rounded-2xl overflow-hidden glass-panel hover:border-[#B9DDF7]/50 transition-all cursor-pointer flex flex-col justify-between"
-          >
-            <div>
-              <div class="relative h-64 overflow-hidden">
-                <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div class="absolute inset-0 bg-gradient-to-t from-[#080B12] via-transparent to-transparent"></div>
-                <span class="absolute top-4 left-4 text-[10px] font-mono uppercase tracking-[0.18em] px-3 py-1 rounded-full bg-[#080B12]/80 text-[#B9DDF7] border border-[#B9DDF7]/30">
-                  ${art.category}
-                </span>
-              </div>
-              <div class="p-8 space-y-3">
-                <div class="text-xs text-[#8993A3]">
-                  ${art.date} • ${art.readTime} • By ${art.author}
+        if (filtered.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full py-16 text-center text-[#8993A3] glass-panel rounded-3xl border border-[#C6CBD3]/15 space-y-2">
+              <i data-lucide="search" class="w-8 h-8 text-[#8993A3] mx-auto opacity-60 mb-2"></i>
+              <p class="font-serif text-2xl text-white">No Dispatches Match Your Search</p>
+              <p class="text-xs text-[#8993A3]">Try adjusting your search terms or selecting a different category filter.</p>
+            </div>
+          `;
+        } else {
+          grid.innerHTML = filtered.map(art => `
+            <article
+              onclick="openArticleModal('${art.id}')"
+              class="group rounded-3xl overflow-hidden glass-panel hover:border-[#B9DDF7]/50 transition-all cursor-pointer flex flex-col justify-between border border-[#C6CBD3]/15"
+            >
+              <div>
+                <div class="relative h-64 overflow-hidden">
+                  <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-[#080B12] via-transparent to-transparent"></div>
+                  <span class="absolute top-4 left-4 text-[10px] font-mono uppercase tracking-[0.18em] px-3 py-1 rounded-full bg-[#080B12]/85 text-[#B9DDF7] border border-[#B9DDF7]/30">
+                    ${art.category}
+                  </span>
                 </div>
-                <h2 class="font-serif text-2xl sm:text-3xl text-white group-hover:text-[#B9DDF7] transition-colors">
-                  ${art.title}
-                </h2>
-                <p class="text-sm text-[#C6CBD3] leading-relaxed">${art.excerpt}</p>
+                <div class="p-8 space-y-3">
+                  <div class="text-xs text-[#8993A3]">
+                    ${art.date} • ${art.readTime} • By ${art.author}
+                  </div>
+                  <h2 class="font-serif text-2xl sm:text-3xl text-white group-hover:text-[#B9DDF7] transition-colors">
+                    ${art.title}
+                  </h2>
+                  <p class="text-sm text-[#C6CBD3] leading-relaxed">${art.excerpt}</p>
+                </div>
               </div>
-            </div>
-            <div class="px-8 pb-8 flex items-center justify-between text-xs uppercase tracking-[0.18em] text-[#B9DDF7]">
-              <span>Read Full Article</span>
-              <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </div>
-          </article>
-        `).join('');
+              <div class="px-8 pb-8 flex items-center justify-between text-xs uppercase tracking-[0.18em] text-[#B9DDF7]">
+                <span>Read Full Article</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </div>
+            </article>
+          `).join('');
+        }
         lucide.createIcons();
       }
     }
