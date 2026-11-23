@@ -182,9 +182,9 @@
     .kinetic-char {
       display: inline-block;
       opacity: 0;
-      transform: translate3d(0, 36px, 0) rotateX(-22deg);
-      transition: opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translate3d(0, 32px, 0) rotateX(-20deg);
+      transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
       backface-visibility: hidden;
     }
@@ -350,12 +350,11 @@
        LUXURY INSTITUTIONAL PRELOADER ANIMATIONS
        ========================================================================= */
     #app-preloader {
-      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.75s ease;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
     #app-preloader.preloader-exit {
       opacity: 0 !important;
-      transform: scale(1.04) !important;
-      visibility: hidden;
+      transform: scale(1.03) !important;
       pointer-events: none !important;
     }
 
@@ -1435,7 +1434,7 @@
                   { text: 'CULTURE', highlight: true },
                   { text: 'MEETS', highlight: false },
                   { text: 'CAPITAL.', highlight: true }
-                ], 90, 32)}
+                ], 60, 28)}
               </h1>
             </div>
 
@@ -3159,10 +3158,17 @@
         return;
       }
 
-      // Add 'revealed' cleanly once — exactly matching Section 09 (.kinetic-scroll-target)
+      // Add 'revealed' cleanly once
       requestAnimationFrame(() => {
         chars.forEach((ch) => ch.classList.add('revealed'));
       });
+
+      // Failsafe guarantee: ensure 100% visibility under all conditions
+      setTimeout(() => {
+        chars.forEach((ch) => {
+          if (!ch.classList.contains('revealed')) ch.classList.add('revealed');
+        });
+      }, 1000);
     }
 
     let ethosCipherObserver = null;
@@ -4439,15 +4445,13 @@
         if (!preloader.classList.contains('preloader-exit')) {
           preloader.classList.add('preloader-exit');
           document.body.style.overflow = '';
-          if (state.activePage === 'home') {
-            initAOS();
-            setTimeout(() => {
-              revealHeroHeadline();
-            }, 80);
-          }
           setTimeout(() => {
             preloader.style.display = 'none';
-          }, 800);
+            if (state.activePage === 'home') {
+              initAOS();
+              revealHeroHeadline();
+            }
+          }, 350);
         }
       });
 
@@ -4490,23 +4494,19 @@
         if (progress < 1) {
           requestAnimationFrame(frame);
         } else {
-          // Completed 100% -> Brief 260ms hold for satisfying completion, then exit
+          // Completed 100% -> Hold briefly, dissolve preloader, then trigger hero animation cleanly
           setTimeout(() => {
             preloader.classList.add('preloader-exit');
             document.body.style.overflow = '';
 
-            // Trigger Hero Kinetic Character Reveal & refreshed entrance right as preloader dissolves!
-            if (state.activePage === 'home') {
-              initAOS();
-              setTimeout(() => {
-                revealHeroHeadline();
-              }, 160);
-            }
-
             setTimeout(() => {
               preloader.style.display = 'none';
-            }, 800);
-          }, 260);
+              if (state.activePage === 'home') {
+                initAOS();
+                revealHeroHeadline();
+              }
+            }, 380);
+          }, 200);
         }
       }
 
