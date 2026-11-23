@@ -176,15 +176,17 @@
     .kinetic-word {
       display: inline-block;
       white-space: nowrap;
+      perspective: 1000px;
     }
 
     .kinetic-char {
       display: inline-block;
       opacity: 0;
-      transform: translate3d(0, 32px, 0) rotateX(-20deg);
-      transition: opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translate3d(0, 36px, 0) rotateX(-22deg);
+      transition: opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
+      backface-visibility: hidden;
     }
 
     .kinetic-char.revealed {
@@ -1433,14 +1435,14 @@
                   { text: 'CULTURE', highlight: true },
                   { text: 'MEETS', highlight: false },
                   { text: 'CAPITAL.', highlight: true }
-                ], 80, 32)}
+                ], 90, 32)}
               </h1>
             </div>
 
             <!-- Authoritative Parent Holding Institution Statement -->
             <div data-aos="fade-up" style="transition-delay: 200ms" class="max-w-3xl mx-auto mt-4 sm:mt-5">
               <p class="text-sm sm:text-base md:text-lg text-[#C6CBD3] font-light leading-relaxed">
-                ECHO FOREVER LLC is a diversified parent holding institution connecting culture, business, entrepreneurship, and community under a unified corporate architecture.
+                ECHO FOREVER is a privately held enterprise focused on building and developing platforms at the intersection of culture, business, entrepreneurship, and community.
               </p>
             </div>
 
@@ -3088,9 +3090,20 @@
       switch (state.activePage) {
         case 'home':
           container.innerHTML = getHomeHTML();
-          startHeroAnimations();
           initEthosCipherObserver();
           initKineticScrollObserver();
+
+          // Only trigger reveal if preloader is not actively covering the screen
+          const preloaderEl = document.getElementById('app-preloader');
+          const isPreloaderActive = preloaderEl && 
+            !preloaderEl.classList.contains('preloader-exit') && 
+            preloaderEl.style.display !== 'none';
+
+          if (!isPreloaderActive) {
+            setTimeout(() => {
+              revealHeroHeadline();
+            }, 80);
+          }
           break;
         case 'about':
           container.innerHTML = getAboutHTML();
@@ -3132,24 +3145,13 @@
     }
 
     // ==========================================================================
-    // 6. KINETIC HEADLINE & CYBERPUNK CIPHER DECRYPTION ENGINE
+    // 6. KINETIC HERO HEADLINE REVEAL ENGINE
     // ==========================================================================
-    function startHeroAnimations(force = false) {
+    function revealHeroHeadline() {
       const headline = document.getElementById('hero-kinetic-headline');
       if (!headline) return;
       const chars = headline.querySelectorAll('.kinetic-char');
       if (!chars.length) return;
-
-      const preloader = document.getElementById('app-preloader');
-      const isPreloaderCovering = preloader && 
-        !preloader.classList.contains('preloader-exit') && 
-        preloader.style.display !== 'none';
-
-      // If screen preloader is actively running and this isn't a forced trigger, hold characters in unrevealed state
-      if (isPreloaderCovering && !force) {
-        chars.forEach((ch) => ch.classList.remove('revealed'));
-        return;
-      }
 
       // Respect reduced motion accessibility
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -3157,31 +3159,10 @@
         return;
       }
 
-      // Reset characters to guarantee a pristine, synchronized entrance animation
-      chars.forEach((ch) => ch.classList.remove('revealed'));
-
+      // Add 'revealed' cleanly once — exactly matching Section 09 (.kinetic-scroll-target)
       requestAnimationFrame(() => {
-        setTimeout(() => {
-          chars.forEach((ch) => ch.classList.add('revealed'));
-        }, 80);
+        chars.forEach((ch) => ch.classList.add('revealed'));
       });
-
-      // Desktop interactive hover ripple
-      if (!headline.dataset.interactiveBound) {
-        headline.dataset.interactiveBound = 'true';
-        headline.addEventListener('mouseenter', () => {
-          const allRevealed = Array.from(chars).every(c => c.classList.contains('revealed'));
-          if (allRevealed) {
-            chars.forEach((ch, idx) => {
-              ch.style.transitionDelay = `${idx * 18}ms`;
-              ch.classList.remove('revealed');
-            });
-            setTimeout(() => {
-              chars.forEach((ch) => ch.classList.add('revealed'));
-            }, 60);
-          }
-        });
-      }
     }
 
     let ethosCipherObserver = null;
@@ -4461,7 +4442,7 @@
           if (state.activePage === 'home') {
             initAOS();
             setTimeout(() => {
-              startHeroAnimations(true);
+              revealHeroHeadline();
             }, 80);
           }
           setTimeout(() => {
@@ -4518,8 +4499,8 @@
             if (state.activePage === 'home') {
               initAOS();
               setTimeout(() => {
-                startHeroAnimations(true);
-              }, 120);
+                revealHeroHeadline();
+              }, 160);
             }
 
             setTimeout(() => {
