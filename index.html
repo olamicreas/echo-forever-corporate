@@ -4348,32 +4348,14 @@
 
           <!-- Top Institutional Header & Navigation Bar -->
           <header class="relative z-20 flex-shrink-0 border-b border-[#C6CBD3]/15 bg-[#080B12]/95 backdrop-blur-2xl px-4 sm:px-8 lg:px-12 py-4 shadow-lg">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
               <div class="flex items-center gap-3.5">
                 <div class="w-10 h-10 rounded-xl border border-[#B9DDF7]/35 bg-[#101827] p-1 flex items-center justify-center shadow-inner flex-shrink-0">
                   <img src="assets/logo.png" alt="ECHO FOREVER LLC" class="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(185,221,247,0.4)]" />
                 </div>
-                <div>
-                  <div class="text-[10px] font-mono uppercase tracking-[0.24em] ${isFoundationDoc ? 'text-[#C7AD7A]' : 'text-[#B9DDF7]'}">
-                    ECHO FOREVER LLC • LEGAL & GOVERNANCE PORTAL
-                  </div>
-                  <h2 class="font-serif text-xl sm:text-2xl lg:text-3xl text-white font-medium">
-                    ${doc.title}
-                  </h2>
-                </div>
-              </div>
-
-              <!-- Top Action Controls -->
-              <div class="flex items-center gap-3 self-end md:self-center">
-                <button
-                  onclick="closeModal()"
-                  class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#101827] text-white hover:text-[#B9DDF7] border border-white/15 hover:border-[#B9DDF7]/50 transition-all text-xs font-mono uppercase tracking-wider cursor-pointer group shadow-lg"
-                  aria-label="Close legal modal"
-                  title="Close (Esc)"
-                >
-                  <span>Close Window</span>
-                  <i data-lucide="x" class="w-4 h-4 transform group-hover:rotate-90 transition-transform"></i>
-                </button>
+                <h2 class="font-serif text-xl sm:text-2xl lg:text-3xl text-white font-medium">
+                  ${doc.title}
+                </h2>
               </div>
             </div>
 
