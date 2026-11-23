@@ -192,6 +192,30 @@
       transform: translate3d(0, 0, 0) rotateX(0deg);
     }
 
+    /* Continuous Fluid Shimmer on Highlighted Kinetic Words ("CULTURE", "CAPITAL.") */
+    @keyframes kineticShimmerWave {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .kinetic-highlight-text {
+      background: linear-gradient(135deg, #FFFFFF 0%, #B9DDF7 30%, #78BCEB 70%, #FFFFFF 100%);
+      background-size: 250% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: kineticShimmerWave 5.5s ease-in-out infinite;
+      display: inline-block;
+    }
+
     /* Magnetic Button Smooth Physics */
     .magnetic-btn {
       transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 300ms ease, background-color 300ms ease, border-color 300ms ease;
@@ -491,20 +515,8 @@
        ========================================================================== -->
   <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-5 bg-gradient-to-b from-[#080B12]/90 to-transparent border-b border-[#C6CBD3]/5">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-      <!-- Brand Identity & Monogram with Back Arrow Control -->
+      <!-- Brand Identity & Monogram -->
       <div class="flex items-center gap-2.5 sm:gap-3.5">
-        <button
-          id="header-back-btn"
-          onclick="goBack()"
-          style="display: none;"
-          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-[#B9DDF7]/30 text-xs font-mono uppercase tracking-[0.14em] text-[#B9DDF7] hover:text-white hover:border-[#B9DDF7] hover:bg-[#171D29]/90 transition-all cursor-pointer group"
-          title="Return to previous screen (Arrow Back)"
-          aria-label="Return to previous screen"
-        >
-          <i data-lucide="arrow-left" class="w-3.5 h-3.5 transform group-hover:-translate-x-1 transition-transform"></i>
-          <span class="hidden md:inline">Back</span>
-        </button>
-
         <button onclick="navigateTo('home')" class="flex items-center gap-3 text-left group cursor-pointer focus:outline-none" aria-label="ECHO FOREVER Home">
           <div id="header-monogram" class="w-10 h-10 relative inline-flex items-center justify-center rounded-xl border border-[#B9DDF7]/30 bg-[#101827]/90 p-1 overflow-hidden shadow-inner transition-all duration-500 group-hover:border-[#B9DDF7]/70 group-hover:shadow-[0_0_20px_rgba(185,221,247,0.35)]">
             <img src="assets/logo.png" alt="ECHO FOREVER LLC" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(185,221,247,0.45)]" />
@@ -587,9 +599,17 @@
               </div>
             </div>
           </div>
-          <p class="text-sm text-[#8993A3] max-w-md leading-relaxed">
-            A diversified parent company connecting culture, business, entrepreneurship, and community through an integrated ecosystem of platforms and long-term initiatives.
-          </p>
+          <div class="space-y-3 text-sm text-[#8993A3] max-w-lg leading-relaxed">
+            <p>
+              ECHO FOREVER is a privately held enterprise focused on building and developing platforms at the intersection of culture, business, entrepreneurship, and community.
+            </p>
+            <p>
+              Through experiences, strategic partnerships, and long-term initiatives, ECHO FOREVER seeks to connect people, ideas, and opportunities while creating meaningful and lasting impact.
+            </p>
+            <p class="text-[#C6CBD3]/80">
+              Our vision is to build an enduring platform where relationships create opportunities, ideas become initiatives, and meaningful connections contribute to lasting impact.
+            </p>
+          </div>
         </div>
 
         <!-- Column 2: Corporate Navigation (2 cols) -->
@@ -1015,7 +1035,7 @@
               if (wordObj.colorClass) {
                 colorClass = wordObj.colorClass;
               } else if (wordObj.highlight) {
-                colorClass = 'bg-gradient-to-r from-white via-[#B9DDF7] to-[#78BCEB] bg-clip-text text-transparent';
+                colorClass = 'kinetic-highlight-text';
               }
               return `<span class="kinetic-char ${colorClass}" style="transition-delay: ${delay}ms">${ch}</span>`;
             })
@@ -2836,21 +2856,6 @@
       const monogramBox = document.getElementById('header-monogram');
       const monogramAccent = document.getElementById('header-monogram-accent');
       const headerCta = document.getElementById('header-cta-btn');
-      const headerBackBtn = document.getElementById('header-back-btn');
-
-      // Header Back Button display & styling
-      if (headerBackBtn) {
-        if (state.activePage !== 'home') {
-          headerBackBtn.style.display = 'inline-flex';
-          if (isFoundationPage) {
-            headerBackBtn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel-gold border border-[#C7AD7A]/40 text-xs font-mono uppercase tracking-[0.14em] text-[#C7AD7A] hover:text-white hover:border-[#C7AD7A] hover:bg-[#171D29]/90 transition-all cursor-pointer group';
-          } else {
-            headerBackBtn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-[#B9DDF7]/30 text-xs font-mono uppercase tracking-[0.14em] text-[#B9DDF7] hover:text-white hover:border-[#B9DDF7] hover:bg-[#171D29]/90 transition-all cursor-pointer group';
-          }
-        } else {
-          headerBackBtn.style.display = 'none';
-        }
-      }
 
       if (monogramBox) {
         monogramBox.className = `w-10 h-10 relative inline-flex items-center justify-center rounded-xl border p-1 overflow-hidden transition-all duration-500 shadow-inner ${
@@ -2899,18 +2904,7 @@
       const mobileList = document.getElementById('mobile-nav-list');
       if (mobileList) {
         const homeActive = state.activePage === 'home';
-        const backBtnHTML = state.activePage !== 'home' ? `
-          <button
-            onclick="goBack()"
-            class="w-full flex items-center gap-2.5 py-3 px-4 rounded-xl text-left border border-[#B9DDF7]/30 bg-[#101827]/90 text-[#B9DDF7] hover:text-white transition-all cursor-pointer mb-3"
-          >
-            <i data-lucide="arrow-left" class="w-4 h-4"></i>
-            <span class="text-xs font-mono uppercase tracking-[0.18em]">Return to Previous Screen</span>
-          </button>
-        ` : '';
-
         mobileList.innerHTML = `
-          ${backBtnHTML}
           <div class="text-[11px] uppercase tracking-[0.24em] text-[#8993A3] mb-4">Institutional Directory</div>
           <button
             onclick="navigateTo('home')"
@@ -3140,14 +3134,54 @@
     // ==========================================================================
     // 6. KINETIC HEADLINE & CYBERPUNK CIPHER DECRYPTION ENGINE
     // ==========================================================================
-    function startHeroAnimations() {
-      // Trigger Kinetic Character-by-Character Reveal on Hero Headline
-      const chars = document.querySelectorAll('#hero-kinetic-headline .kinetic-char');
+    function startHeroAnimations(force = false) {
+      const headline = document.getElementById('hero-kinetic-headline');
+      if (!headline) return;
+      const chars = headline.querySelectorAll('.kinetic-char');
+      if (!chars.length) return;
+
+      const preloader = document.getElementById('app-preloader');
+      const isPreloaderCovering = preloader && 
+        !preloader.classList.contains('preloader-exit') && 
+        preloader.style.display !== 'none';
+
+      // If screen preloader is actively running and this isn't a forced trigger, hold characters in unrevealed state
+      if (isPreloaderCovering && !force) {
+        chars.forEach((ch) => ch.classList.remove('revealed'));
+        return;
+      }
+
+      // Respect reduced motion accessibility
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        chars.forEach((ch) => ch.classList.add('revealed'));
+        return;
+      }
+
+      // Reset characters to guarantee a pristine, synchronized entrance animation
+      chars.forEach((ch) => ch.classList.remove('revealed'));
+
       requestAnimationFrame(() => {
         setTimeout(() => {
           chars.forEach((ch) => ch.classList.add('revealed'));
-        }, 50);
+        }, 80);
       });
+
+      // Desktop interactive hover ripple
+      if (!headline.dataset.interactiveBound) {
+        headline.dataset.interactiveBound = 'true';
+        headline.addEventListener('mouseenter', () => {
+          const allRevealed = Array.from(chars).every(c => c.classList.contains('revealed'));
+          if (allRevealed) {
+            chars.forEach((ch, idx) => {
+              ch.style.transitionDelay = `${idx * 18}ms`;
+              ch.classList.remove('revealed');
+            });
+            setTimeout(() => {
+              chars.forEach((ch) => ch.classList.add('revealed'));
+            }, 60);
+          }
+        });
+      }
     }
 
     let ethosCipherObserver = null;
@@ -3532,12 +3566,8 @@
       root.innerHTML = `
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#080B12]/85 backdrop-blur-xl overflow-y-auto">
           <div class="relative w-full max-w-2xl rounded-3xl glass-panel border border-[#B9DDF7]/30 overflow-hidden my-8">
-            <div class="absolute top-4 inset-x-4 z-10 flex items-center justify-between pointer-events-none">
-              <button onclick="closeModal()" class="pointer-events-auto px-3 py-1.5 rounded-full bg-[#080B12]/80 text-[#C6CBD3] hover:text-white border border-white/10 flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider cursor-pointer shadow-lg">
-                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                <span>Back</span>
-              </button>
-              <button onclick="closeModal()" class="pointer-events-auto p-2 rounded-full bg-[#080B12]/80 text-white hover:text-[#B9DDF7] cursor-pointer" aria-label="Close modal">
+            <div class="absolute top-4 right-4 z-10">
+              <button onclick="closeModal()" class="p-2.5 rounded-full bg-[#080B12]/85 text-white hover:text-[#B9DDF7] border border-white/10 hover:border-white/30 cursor-pointer shadow-lg transition-colors" aria-label="Close modal">
                 <i data-lucide="x" class="w-5 h-5"></i>
               </button>
             </div>
@@ -4326,17 +4356,11 @@
             
             <!-- Top Control Bar -->
             <div class="flex items-center justify-between border-b border-[#C6CBD3]/15 pb-4 gap-4">
-              <div class="flex items-center gap-3">
-                <button onclick="closeModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#101827] border border-white/10 text-xs font-mono uppercase tracking-wider text-[#B9DDF7] hover:text-white hover:border-[#B9DDF7]/40 transition-colors cursor-pointer group">
-                  <i data-lucide="arrow-left" class="w-3.5 h-3.5 transform group-hover:-translate-x-1 transition-transform"></i>
-                  <span>Back</span>
-                </button>
-                <div>
-                  <div class="text-[10px] font-mono uppercase tracking-[0.2em] ${isFoundationDoc ? 'text-[#C7AD7A]' : 'text-[#B9DDF7]'}">ECHO FOREVER LLC • LEGAL & GOVERNANCE PORTAL</div>
-                  <h3 class="font-serif text-2xl sm:text-3xl text-white font-medium">${doc.title}</h3>
-                </div>
+              <div>
+                <div class="text-[10px] font-mono uppercase tracking-[0.2em] ${isFoundationDoc ? 'text-[#C7AD7A]' : 'text-[#B9DDF7]'}">ECHO FOREVER LLC • LEGAL & GOVERNANCE PORTAL</div>
+                <h3 class="font-serif text-2xl sm:text-3xl text-white font-medium">${doc.title}</h3>
               </div>
-              <button onclick="closeModal()" class="p-2.5 rounded-full bg-[#080B12] text-[#C6CBD3] hover:text-white border border-white/10 cursor-pointer" aria-label="Close modal">
+              <button onclick="closeModal()" class="p-2.5 rounded-full bg-[#101827] text-[#C6CBD3] hover:text-white border border-white/10 hover:border-white/30 transition-colors cursor-pointer" aria-label="Close modal">
                 <i data-lucide="x" class="w-5 h-5"></i>
               </button>
             </div>
@@ -4429,6 +4453,23 @@
       // Lock scrolling during preloader playback
       document.body.style.overflow = 'hidden';
 
+      // Allow click to gracefully expedite exit
+      preloader.addEventListener('click', () => {
+        if (!preloader.classList.contains('preloader-exit')) {
+          preloader.classList.add('preloader-exit');
+          document.body.style.overflow = '';
+          if (state.activePage === 'home') {
+            initAOS();
+            setTimeout(() => {
+              startHeroAnimations(true);
+            }, 80);
+          }
+          setTimeout(() => {
+            preloader.style.display = 'none';
+          }, 800);
+        }
+      });
+
       // Duration calibrated to ~2.2 seconds for theatrical holding company presence
       const totalDuration = 2200;
       const startTime = performance.now();
@@ -4472,6 +4513,15 @@
           setTimeout(() => {
             preloader.classList.add('preloader-exit');
             document.body.style.overflow = '';
+
+            // Trigger Hero Kinetic Character Reveal & refreshed entrance right as preloader dissolves!
+            if (state.activePage === 'home') {
+              initAOS();
+              setTimeout(() => {
+                startHeroAnimations(true);
+              }, 120);
+            }
+
             setTimeout(() => {
               preloader.style.display = 'none';
             }, 800);
