@@ -3534,6 +3534,7 @@
     function closeModal(updateHash = true) {
       const root = document.getElementById('modal-root');
       if (root) root.innerHTML = '';
+      document.body.style.overflow = '';
 
       if (updateHash) {
         const legalKeys = ['terms', 'privacy', 'cookies', 'event-terms', 'foundation-disclaimer'];
@@ -4320,6 +4321,8 @@
       const root = document.getElementById('modal-root');
       if (!root) return;
 
+      document.body.style.overflow = 'hidden';
+
       if (pushHistory) {
         const targetHash = `#${doc.id}`;
         if (window.location.hash !== targetHash) {
@@ -4338,28 +4341,52 @@
       const isFoundationDoc = doc.id === 'foundation-disclaimer';
 
       root.innerHTML = `
-        <div class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#080B12]/90 backdrop-blur-2xl overflow-y-auto">
-          <div class="relative w-full max-w-4xl rounded-3xl ${isFoundationDoc ? 'glass-panel-gold border-[#C7AD7A]/40' : 'glass-panel border-[#B9DDF7]/30'} p-5 sm:p-8 lg:p-10 max-h-[90vh] overflow-y-auto space-y-6 my-6 shadow-2xl">
-            
-            <!-- Top Control Bar -->
-            <div class="flex items-center justify-between border-b border-[#C6CBD3]/15 pb-4 gap-4">
-              <div>
-                <div class="text-[10px] font-mono uppercase tracking-[0.2em] ${isFoundationDoc ? 'text-[#C7AD7A]' : 'text-[#B9DDF7]'}">ECHO FOREVER LLC • LEGAL & GOVERNANCE PORTAL</div>
-                <h3 class="font-serif text-2xl sm:text-3xl text-white font-medium">${doc.title}</h3>
+        <div id="legal-modal-fullscreen" class="fixed inset-0 z-50 flex flex-col bg-[#080B12] text-[#C6CBD3] overflow-hidden">
+          <!-- Subtle ambient architectural glow -->
+          <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none opacity-20 blur-[130px] ${isFoundationDoc ? 'bg-[#C7AD7A]' : 'bg-[#B9DDF7]'}"></div>
+          <div class="absolute -bottom-32 -left-32 w-96 h-96 rounded-full pointer-events-none opacity-15 blur-[130px] bg-[#78BCEB]"></div>
+
+          <!-- Top Institutional Header & Navigation Bar -->
+          <header class="relative z-20 flex-shrink-0 border-b border-[#C6CBD3]/15 bg-[#080B12]/95 backdrop-blur-2xl px-4 sm:px-8 lg:px-12 py-4 shadow-lg">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl border border-[#B9DDF7]/35 bg-[#101827] p-1 flex items-center justify-center shadow-inner flex-shrink-0">
+                  <img src="assets/logo.png" alt="ECHO FOREVER LLC" class="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(185,221,247,0.4)]" />
+                </div>
+                <div>
+                  <div class="text-[10px] font-mono uppercase tracking-[0.24em] ${isFoundationDoc ? 'text-[#C7AD7A]' : 'text-[#B9DDF7]'}">
+                    ECHO FOREVER LLC • LEGAL & GOVERNANCE PORTAL
+                  </div>
+                  <h2 class="font-serif text-xl sm:text-2xl lg:text-3xl text-white font-medium">
+                    ${doc.title}
+                  </h2>
+                </div>
               </div>
-              <button onclick="closeModal()" class="p-2.5 rounded-full bg-[#101827] text-[#C6CBD3] hover:text-white border border-white/10 hover:border-white/30 transition-colors cursor-pointer" aria-label="Close modal">
-                <i data-lucide="x" class="w-5 h-5"></i>
-              </button>
+
+              <!-- Top Action Controls -->
+              <div class="flex items-center gap-3 self-end md:self-center">
+                <button
+                  onclick="closeModal()"
+                  class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#101827] text-white hover:text-[#B9DDF7] border border-white/15 hover:border-[#B9DDF7]/50 transition-all text-xs font-mono uppercase tracking-wider cursor-pointer group shadow-lg"
+                  aria-label="Close legal modal"
+                  title="Close (Esc)"
+                >
+                  <span>Close Window</span>
+                  <i data-lucide="x" class="w-4 h-4 transform group-hover:rotate-90 transition-transform"></i>
+                </button>
+              </div>
             </div>
 
             <!-- Tab Switcher Navigation Pills -->
-            <div class="flex flex-wrap gap-2 pb-2 border-b border-[#C6CBD3]/10">
+            <div class="max-w-7xl mx-auto mt-3.5 pt-3 border-t border-white/5 flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
               ${docKeys.map(k => `
                 <button
                   onclick="openLegalModal('${k.id}', true)"
-                  class="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all cursor-pointer border ${
+                  class="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer border ${
                     doc.id === k.id
-                      ? (k.id === 'foundation-disclaimer' ? 'bg-[#C7AD7A] text-[#080B12] border-[#C7AD7A] font-semibold shadow-[0_0_15px_rgba(199,173,122,0.3)]' : 'bg-[#B9DDF7] text-[#080B12] border-[#B9DDF7] font-semibold shadow-[0_0_15px_rgba(185,221,247,0.3)]')
+                      ? (k.id === 'foundation-disclaimer' 
+                          ? 'bg-[#C7AD7A] text-[#080B12] border-[#C7AD7A] font-semibold shadow-[0_0_15px_rgba(199,173,122,0.3)]' 
+                          : 'bg-[#B9DDF7] text-[#080B12] border-[#B9DDF7] font-semibold shadow-[0_0_15px_rgba(185,221,247,0.3)]')
                       : 'bg-[#101827]/70 text-[#C6CBD3] border-white/10 hover:border-[#B9DDF7]/40 hover:text-white'
                   }"
                 >
@@ -4367,28 +4394,43 @@
                 </button>
               `).join('')}
             </div>
+          </header>
 
-            <!-- Body Document Content -->
-            <div class="pt-2">
-              ${doc.html}
+          <!-- Full-Screen Scrollable Document Reading Canvas -->
+          <main class="relative z-10 flex-1 overflow-y-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-12">
+            <div class="max-w-5xl mx-auto space-y-8">
+              <!-- Legal Document Card Container -->
+              <div class="rounded-3xl ${isFoundationDoc ? 'glass-panel-gold border-[#C7AD7A]/35' : 'glass-panel border-[#B9DDF7]/25'} p-6 sm:p-10 lg:p-14 shadow-2xl relative overflow-hidden">
+                <div class="space-y-6 text-sm sm:text-base leading-relaxed text-[#C6CBD3]">
+                  ${doc.html}
+                </div>
+              </div>
             </div>
+          </main>
 
-            <!-- Modal Bottom Control Actions -->
-            <div class="pt-6 border-t border-[#C6CBD3]/15 flex flex-wrap items-center justify-between gap-4 text-xs text-[#8993A3]">
-              <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full ${isFoundationDoc ? 'bg-[#C7AD7A]' : 'bg-[#B9DDF7]'}"></span>
-                <span>Official Institutional Record • ECHO FOREVER LLC</span>
+          <!-- Bottom Sticky Action Bar -->
+          <footer class="relative z-20 flex-shrink-0 border-t border-[#C6CBD3]/15 bg-[#080B12]/95 backdrop-blur-xl px-4 sm:px-8 lg:px-12 py-3.5">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+              <div class="flex items-center gap-2.5 text-[#8993A3] text-[11px] font-mono">
+                <span class="w-2 h-2 rounded-full ${isFoundationDoc ? 'bg-[#C7AD7A] animate-pulse' : 'bg-[#B9DDF7] animate-pulse'}"></span>
+                <span>Official Corporate Governance Record • ECHO FOREVER LLC</span>
               </div>
               <div class="flex items-center gap-3">
-                <button onclick="closeModal(); navigateTo('contact', { inquiryCategory: 'General Correspondence' });" class="px-4 py-2 rounded-full bg-[#101827] text-white border border-white/15 hover:border-[#B9DDF7] cursor-pointer">
+                <button
+                  onclick="closeModal(); navigateTo('contact', { inquiryCategory: 'General Correspondence' });"
+                  class="px-4 py-2 rounded-full bg-[#101827] text-white border border-white/15 hover:border-[#B9DDF7] hover:text-[#B9DDF7] transition-colors cursor-pointer text-xs"
+                >
                   Direct Inquiry Desk
                 </button>
-                <button onclick="closeModal()" class="px-5 py-2 rounded-full ${isFoundationDoc ? 'bg-gradient-to-r from-[#C7AD7A] to-[#DFC89B]' : 'bg-[#B9DDF7]'} text-[#080B12] font-semibold uppercase tracking-wider cursor-pointer">
+                <button
+                  onclick="closeModal()"
+                  class="px-5 py-2 rounded-full ${isFoundationDoc ? 'bg-gradient-to-r from-[#C7AD7A] to-[#DFC89B]' : 'bg-gradient-to-r from-[#B9DDF7] to-[#78BCEB]'} text-[#080B12] font-semibold uppercase tracking-wider text-xs cursor-pointer shadow-[0_0_15px_rgba(185,221,247,0.25)] hover:shadow-[0_0_25px_rgba(185,221,247,0.4)] transition-all"
+                >
                   Acknowledge & Close
                 </button>
               </div>
             </div>
-          </div>
+          </footer>
         </div>
       `;
       lucide.createIcons();
