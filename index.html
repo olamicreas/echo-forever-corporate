@@ -240,6 +240,16 @@
       will-change: transform;
     }
 
+    /* Header CTA Button & Text Straight-Line Formatting */
+    #header-cta-btn {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+    #header-cta-btn span {
+      white-space: nowrap !important;
+      display: inline-block !important;
+    }
+
     /* ==========================================================================
        BESPOKE SCROLL CHOREOGRAPHY, LASER DIVIDERS & SPOTLIGHT SURFACES
        ========================================================================== */
@@ -527,9 +537,9 @@
        STICKY INSTITUTIONAL NAVIGATION HEADER
        ========================================================================== -->
   <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-5 bg-gradient-to-b from-[#080B12]/90 to-transparent border-b border-[#C6CBD3]/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+    <div class="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
       <!-- Brand Identity & Monogram -->
-      <div class="flex items-center gap-2.5 sm:gap-3.5">
+      <div class="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
         <button onclick="navigateTo('home')" class="flex items-center gap-3 text-left group cursor-pointer focus:outline-none" aria-label="ECHO FOREVER Home">
           <div id="header-monogram" class="w-10 h-10 relative inline-flex items-center justify-center rounded-xl border border-[#B9DDF7]/30 bg-[#101827]/90 p-1 overflow-hidden shadow-inner transition-all duration-500 group-hover:border-[#B9DDF7]/70 group-hover:shadow-[0_0_20px_rgba(185,221,247,0.35)]">
             <img src="assets/logo.png" alt="ECHO FOREVER LLC" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(185,221,247,0.45)]" />
@@ -546,15 +556,15 @@
       </nav>
 
       <!-- Desktop Magnetic CTA & Mobile Toggle -->
-      <div class="flex items-center gap-3">
-        <div class="hidden sm:block">
-          <button id="header-cta-btn" onclick="navigateTo('contact')" class="magnetic-btn group relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-xs uppercase tracking-[0.14em] bg-gradient-to-r from-[#B9DDF7] via-[#96CCF3] to-[#78BCEB] text-[#080B12] font-medium shadow-[0_0_30px_rgba(185,221,247,0.18)] hover:shadow-[0_0_40px_rgba(185,221,247,0.32)] border border-white/40 cursor-pointer">
-            <span>Connect With Us</span>
-            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+      <div class="flex items-center gap-3 shrink-0">
+        <div class="hidden sm:block shrink-0">
+          <button id="header-cta-btn" onclick="navigateTo('contact')" class="magnetic-btn group relative inline-flex items-center justify-center gap-2 rounded-full px-4 xl:px-5 py-2.5 text-xs uppercase tracking-[0.12em] xl:tracking-[0.14em] bg-gradient-to-r from-[#B9DDF7] via-[#96CCF3] to-[#78BCEB] text-[#080B12] font-medium shadow-[0_0_30px_rgba(185,221,247,0.18)] hover:shadow-[0_0_40px_rgba(185,221,247,0.32)] border border-white/40 cursor-pointer whitespace-nowrap shrink-0">
+            <span class="whitespace-nowrap">Connect With Us</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 shrink-0"></i>
           </button>
         </div>
 
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="xl:hidden p-2.5 rounded-lg border border-[#C6CBD3]/20 bg-[#101827]/80 text-white hover:border-[#B9DDF7]/50 transition-colors cursor-pointer" aria-label="Toggle Menu">
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="xl:hidden p-2.5 rounded-lg border border-[#C6CBD3]/20 bg-[#101827]/80 text-white hover:border-[#B9DDF7]/50 transition-colors cursor-pointer shrink-0" aria-label="Toggle Menu">
           <i id="mobile-menu-icon" data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
@@ -3598,7 +3608,7 @@
       }
 
       if (headerCta) {
-        headerCta.className = `magnetic-btn group relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-xs uppercase tracking-[0.14em] font-medium border cursor-pointer ${
+        headerCta.className = `magnetic-btn group relative inline-flex items-center justify-center gap-2 rounded-full px-4 xl:px-5 py-2.5 text-xs uppercase tracking-[0.12em] xl:tracking-[0.14em] font-medium border cursor-pointer whitespace-nowrap shrink-0 ${
           isFoundationPage
             ? 'bg-gradient-to-r from-[#C7AD7A] to-[#DFC89B] text-[#080B12] border-white/30 shadow-[0_0_25px_rgba(199,173,122,0.2)]'
             : 'bg-gradient-to-r from-[#B9DDF7] via-[#96CCF3] to-[#78BCEB] text-[#080B12] border-white/40 shadow-[0_0_30px_rgba(185,221,247,0.18)]'
