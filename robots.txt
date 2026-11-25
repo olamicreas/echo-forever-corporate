@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://olamicreas.github.io/echo-forever-corporate/sitemap.xml
