@@ -2899,8 +2899,8 @@
 
             <!-- Frequently Asked Questions (FAQ) -->
             <div data-aos="fade-up" class="space-y-6">
-              <div class="text-xs font-mono uppercase tracking-[0.22em] text-[#B9DDF7]">EVENT BRIEFING</div>
-              <h2 class="font-serif text-3xl sm:text-4xl text-white">Frequently Asked Questions</h2>
+              <div class="text-xs font-mono uppercase tracking-[0.22em] text-[#B9DDF7]">EVENT BRIEFING • FAQ</div>
+              <h2 class="font-serif text-3xl sm:text-4xl text-white">Event FAQ & Attendee Inquiries</h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 ${[
                   { q: 'What are the criteria for attendance?', a: 'Attendance is curated for senior executives, entrepreneurs, creative architects, and civic leaders. Credential requests are reviewed on a rolling basis to ensure high-trust dialogue.' },
@@ -2922,10 +2922,10 @@
                 ATTENDANCE POLICIES & NOTICES
               </div>
               <p>
-                <strong>Cancellation & Credential Transfer:</strong> Attendance credentials issued for The First Echo are non-transferable without prior written authorization from the Executive Secretariat. In the event of unforeseen rescheduling, all issued credentials remain honored for the rescheduled date. Review full <a href="javascript:void(0)" onclick="openLegalModal('event-terms')" class="underline text-[#B9DDF7] hover:text-white">Event Terms</a>.
+                <strong>Cancellation & Refund Policy:</strong> Attendance credentials issued for The First Echo are complimentary and non-transferable without prior written authorization from the Executive Secretariat. In the event of unforeseen rescheduling, all confirmed credentials automatically remain valid for the rescheduled date. Review full <a href="javascript:void(0)" onclick="openLegalModal('event-terms')" class="underline text-[#B9DDF7] hover:text-white">Event Terms</a>.
               </p>
               <p>
-                <strong>Photography & Institutional Archiving Notice:</strong> Attendance at The First Echo serves as acknowledgement that institutional photography and video documentation may be captured for historical archiving and publication in Echo Forever dispatches.
+                <strong>Photography, Recording & Privacy Notice:</strong> Attendance at The First Echo serves as acknowledgement that institutional photography and media recording may be captured for historical archiving and publication in official Echo Forever dispatches.
               </p>
             </div>
           </div>
@@ -3987,10 +3987,8 @@
         return;
       }
 
-      // Add 'revealed' cleanly with requestAnimationFrame for smooth frame alignment
-      requestAnimationFrame(() => {
-        chars.forEach((ch) => ch.classList.add('revealed'));
-      });
+      // Add 'revealed' cleanly to trigger CSS staggered entrance transitions
+      chars.forEach((ch) => ch.classList.add('revealed'));
 
       // Failsafe guarantee: ensure 100% visibility under all conditions
       setTimeout(() => {
@@ -5421,6 +5419,9 @@
       // Duration calibrated to ~1.0 second for a swift institutional presence
       const totalDuration = 1000;
       const startTime = performance.now();
+
+      // Failsafe timer: guarantees preloader dismisses even if requestAnimationFrame is throttled in background tabs
+      setTimeout(finishPreloader, totalDuration + 200);
 
       function frame(now) {
         const elapsed = now - startTime;
