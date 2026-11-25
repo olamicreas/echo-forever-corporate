@@ -641,14 +641,15 @@
             Corporate
           </div>
           <ul class="space-y-2.5 text-sm">
-            <li><button onclick="navigateTo('home')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">Home Gateway</button></li>
-            <li><button onclick="navigateTo('about')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">About & Philosophy</button></li>
-            <li><button onclick="navigateTo('ecosystem')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">Our Ecosystem</button></li>
+            <li><button onclick="navigateTo('home')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">Home</button></li>
+            <li><button onclick="navigateTo('about')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">About Echo</button></li>
+            <li><button onclick="navigateTo('ecosystem')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">The Echo Ecosystem</button></li>
             <li><button onclick="navigateTo('experiences')" class="text-[#8993A3] hover:text-[#B9DDF7] transition-colors cursor-pointer">Echo Experiences</button></li>
             <li><button onclick="navigateTo('the-first-echo')" class="text-[#8993A3] hover:text-[#B9DDF7] transition-colors cursor-pointer">The First Echo</button></li>
             <li><button onclick="navigateTo('foundation')" class="text-[#8993A3] hover:text-[#C7AD7A] transition-colors cursor-pointer">Echo Foundation</button></li>
-            <li><button onclick="navigateTo('partnerships')" class="text-[#8993A3] hover:text-[#B9DDF7] transition-colors cursor-pointer">Corporate Partnerships</button></li>
-            <li><button onclick="navigateTo('contact')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">Inquiries & Contact</button></li>
+            <li><button onclick="navigateTo('partnerships')" class="text-[#8993A3] hover:text-[#B9DDF7] transition-colors cursor-pointer">Partnerships</button></li>
+            <li><button onclick="navigateTo('journal')" class="text-[#8993A3] hover:text-[#B9DDF7] transition-colors cursor-pointer">Echo Journal</button></li>
+            <li><button onclick="navigateTo('contact')" class="text-[#8993A3] hover:text-white transition-colors cursor-pointer">Contact</button></li>
             <li><a href="#terms" onclick="event.preventDefault(); openLegalModal('terms');" class="text-[#8993A3] hover:text-[#B9DDF7] transition-colors cursor-pointer inline-flex items-center gap-1.5"><span>Legal & Terms</span><i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#B9DDF7]"></i></a></li>
           </ul>
         </div>
@@ -686,7 +687,7 @@
             <li>
               <button onclick="navigateTo('journal')" class="text-[#8993A3] hover:text-white transition-colors flex items-center gap-2 cursor-pointer">
                 <span>Echo Journal</span>
-                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-[#8993A3] border border-white/10">Editorial</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-[#8993A3] border border-white/10">In Development</span>
               </button>
             </li>
           </ul>
@@ -812,11 +813,11 @@
         id: 'collective',
         number: '03',
         title: 'ECHO COLLECTIVE',
-        subtitle: 'Relationships That Create Possibilities.',
+        subtitle: 'Membership and relationships.',
         category: 'FUTURE PLATFORM CONCEPT',
         accent: '#78BCEB',
         statusType: 'future-platform',
-        statusBadge: 'Future Platform',
+        statusBadge: 'In Development',
         statusTag: 'FUTURE PLATFORM • IN DEVELOPMENT',
         statusNote: 'Curated relationship network concept in development; active membership availability or benefits are not currently advertised.',
         description:
@@ -837,11 +838,11 @@
         id: 'ventures',
         number: '04',
         title: 'ECHO VENTURES',
-        subtitle: 'Ideas With the Potential to Become Something Greater.',
+        subtitle: 'Business development and strategic opportunities.',
         category: 'FUTURE PLATFORM CONCEPT',
         accent: '#C6CBD3',
         statusType: 'future-platform',
-        statusBadge: 'Future Platform',
+        statusBadge: 'In Development',
         statusTag: 'FUTURE PLATFORM • IN DEVELOPMENT',
         complianceNote: 'Business development and strategic opportunity concept in development. (Not a fund, securities offering, or investment adviser).',
         description:
@@ -862,12 +863,12 @@
         id: 'journal',
         number: '05',
         title: 'ECHO JOURNAL',
-        subtitle: 'Ideas, Perspectives & Influence.',
-        category: 'EDITORIAL CAPABILITY',
+        subtitle: 'Media, culture, storytelling, and editorial.',
+        category: 'FUTURE PLATFORM CONCEPT',
         accent: '#B9DDF7',
         statusType: 'editorial-capability',
-        statusBadge: 'Editorial Capability',
-        statusTag: 'EDITORIAL CAPABILITY • IN DEVELOPMENT',
+        statusBadge: 'In Development',
+        statusTag: 'FUTURE PLATFORM • IN DEVELOPMENT',
         statusNote: 'Institutional editorial capability and publishing agenda currently in structured development.',
         description:
           'An editorial capability in development, established to document the ideas, leadership philosophies, cultural dialogues, and commercial shifts shaping tomorrow’s economy.',
@@ -1006,13 +1007,15 @@
     ];
 
     const NAV_ITEMS = [
-      { id: 'about', label: 'About' },
-      { id: 'ecosystem', label: 'Our Ecosystem' },
-      { id: 'experiences', label: 'Experiences' },
-      { id: 'the-first-echo', label: 'The First Echo' },
-      { id: 'foundation', label: 'Foundation' },
-      { id: 'partnerships', label: 'Partnerships' },
-      { id: 'contact', label: 'Contact' }
+      { id: 'home', label: 'Home', shortLabel: 'Home' },
+      { id: 'about', label: 'About Echo', shortLabel: 'About' },
+      { id: 'ecosystem', label: 'The Echo Ecosystem', shortLabel: 'Ecosystem' },
+      { id: 'experiences', label: 'Echo Experiences', shortLabel: 'Experiences' },
+      { id: 'the-first-echo', label: 'The First Echo', shortLabel: 'The First Echo' },
+      { id: 'foundation', label: 'Echo Foundation', shortLabel: 'Foundation' },
+      { id: 'partnerships', label: 'Partnerships', shortLabel: 'Partnerships' },
+      { id: 'journal', label: 'Echo Journal', shortLabel: 'Journal' },
+      { id: 'contact', label: 'Contact', shortLabel: 'Contact' }
     ];
 
     // Reusable helper to build character-by-character kinetic headline/quote HTML
@@ -1165,95 +1168,78 @@
         `;
       }).join('');
 
-      const bentoCardsHTML = ECOSYSTEM_PILLARS.map((pillar, idx) => {
+      // Tier 1: Primary Initial Operating Focus & Development Focus Cards (Echo Experiences & Echo Foundation)
+      const primaryPillarsHTML = [
+        {
+          pillar: ECOSYSTEM_PILLARS[0], // Experiences
+          borderClass: 'border-[#B9DDF7]/35 hover:border-[#B9DDF7]/75',
+          glowClass: 'shadow-[0_20px_50px_rgba(185,221,247,0.12)]',
+          badgeText: 'INITIAL OPERATING FOCUS',
+          badgeClass: 'bg-[#080B12]/85 text-[#B9DDF7] border border-[#B9DDF7]/40',
+          dotClass: 'bg-[#B9DDF7] animate-pulse',
+          dockClass: 'glass-dock',
+          btnClass: 'bg-gradient-to-r from-[#B9DDF7] via-[#96CCF3] to-[#78BCEB] text-[#080B12]',
+          btnText: 'EXPLORE ECHO EXPERIENCES',
+          aos: 'fade-right'
+        },
+        {
+          pillar: ECOSYSTEM_PILLARS[1], // Foundation
+          borderClass: 'border-[#C7AD7A]/35 hover:border-[#C7AD7A]/75',
+          glowClass: 'shadow-[0_20px_50px_rgba(199,173,122,0.12)]',
+          badgeText: 'DEVELOPMENT FOCUS • COMMUNITY IMPACT',
+          badgeClass: 'bg-[#080B12]/85 text-[#C7AD7A] border border-[#C7AD7A]/40',
+          dotClass: 'bg-[#C7AD7A] animate-pulse',
+          dockClass: 'glass-dock-gold',
+          btnClass: 'bg-gradient-to-r from-[#C7AD7A] to-[#DFC89B] text-[#080B12]',
+          btnText: 'EXPLORE ECHO FOUNDATION',
+          aos: 'fade-left'
+        }
+      ].map(({ pillar, borderClass, glowClass, badgeText, badgeClass, dotClass, dockClass, btnClass, btnText, aos }) => {
         const isFoundation = pillar.id === 'foundation';
-        const isExperiences = pillar.id === 'experiences';
-        const isLast = idx === ECOSYSTEM_PILLARS.length - 1;
-        const cardAos =
-          idx === 0
-            ? 'fade-right'
-            : idx === 1 || idx === 2
-            ? 'fade-left'
-            : idx === 3
-            ? 'fade-right'
-            : 'fade-left';
-
-        // Ensure Pillar 05 spans full width on 2-column tablet layouts and pairs cleanly with Pillar 04 on 12-col desktop
-        const spanClasses = `${pillar.bentoSpan} ${isLast ? 'md:col-span-2 lg:col-span-6' : 'md:col-span-1'}`;
-        const minHeightClass = isExperiences ? 'min-h-[520px] lg:min-h-[640px]' : 'min-h-[390px] lg:min-h-[420px]';
-
         return `
           <div
-            onclick="navigateTo('${pillar.id}')"
-            data-aos="${cardAos}"
-            style="transition-delay: ${idx * 75}ms"
-            class="spotlight-card ${spanClasses} ${minHeightClass} group relative rounded-[26px] overflow-hidden cursor-pointer border transition-all duration-700 flex flex-col justify-between p-4 sm:p-5 bg-[#080B12] shadow-[0_20px_50px_rgba(0,0,0,0.65)] ${
-              isFoundation
-                ? 'border-[#C7AD7A]/30 hover:border-[#C7AD7A]/75'
-                : 'border-[#C6CBD3]/15 hover:border-[#B9DDF7]/60'
-            }"
+            data-aos="${aos}"
+            class="spotlight-card group relative rounded-[28px] overflow-hidden border ${borderClass} ${glowClass} bg-[#080B12] transition-all duration-700 flex flex-col justify-between p-6 sm:p-8 min-h-[500px] lg:min-h-[560px]"
           >
-            <!-- Background Photography with Smooth Scale on Hover -->
+            <!-- Background Photography with Subtle Scale on Hover -->
             <div class="absolute inset-0 overflow-hidden">
               <img
                 src="${pillar.image}"
                 alt="${pillar.title}"
-                class="w-full h-full object-cover object-center scale-100 group-hover:scale-110 transition-transform duration-1000 ease-out brightness-90 contrast-105"
+                class="w-full h-full object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out brightness-75 contrast-105"
               />
-              <div class="absolute inset-0 bg-gradient-to-b from-[#080B12]/35 via-transparent to-[#080B12]/85"></div>
+              <div class="absolute inset-0 bg-gradient-to-b from-[#080B12]/60 via-[#080B12]/40 to-[#080B12]/95"></div>
             </div>
 
-            <!-- Top Understated Architectural Index Pill, Classification Tag & Action Orb -->
-            <div class="relative z-10 flex flex-wrap items-center justify-between gap-2.5">
-              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-xl bg-[#080B12]/80 border ${
-                isFoundation ? 'border-[#C7AD7A]/35 text-[#C7AD7A]' : 'border-white/15 text-white'
+            <!-- Top Header & Badges -->
+            <div class="relative z-10 flex flex-wrap items-center justify-between gap-3">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-xl bg-[#080B12]/85 border ${
+                isFoundation ? 'border-[#C7AD7A]/40 text-[#C7AD7A]' : 'border-white/15 text-white'
               }">
-                <span class="text-[11px] font-mono tracking-[0.2em] font-semibold">${pillar.number}</span>
+                <span class="text-xs font-mono tracking-[0.2em] font-semibold">${pillar.number}</span>
                 <span class="w-1 h-1 rounded-full bg-current opacity-60"></span>
-                <span class="text-[10px] font-mono uppercase tracking-[0.16em] text-[#C6CBD3]">${pillar.category}</span>
+                <span class="text-[10px] font-mono uppercase tracking-[0.18em] ${isFoundation ? 'text-[#C7AD7A]' : 'text-[#C6CBD3]'}">${pillar.category}</span>
               </div>
 
-              <div class="flex items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-mono uppercase tracking-[0.16em] backdrop-blur-xl ${
-                  isFoundation
-                    ? 'bg-[#080B12]/85 text-[#C7AD7A] border border-[#C7AD7A]/40'
-                    : isExperiences
-                    ? 'bg-[#080B12]/85 text-[#B9DDF7] border border-[#B9DDF7]/40'
-                    : 'bg-[#080B12]/80 text-[#8993A3] border border-white/10'
-                }">
-                  <span class="w-1.5 h-1.5 rounded-full ${
-                    isFoundation ? 'bg-[#C7AD7A]' : isExperiences ? 'bg-[#B9DDF7]' : 'bg-[#8993A3]'
-                  } ${isExperiences || isFoundation ? 'animate-pulse' : ''}"></span>
-                  <span>${pillar.statusBadge.toUpperCase()}</span>
-                </span>
-
-                <div class="w-9 h-9 rounded-full backdrop-blur-xl bg-[#080B12]/65 border flex items-center justify-center transition-all duration-500 ${
-                  isFoundation
-                    ? 'border-[#C7AD7A]/35 text-[#C7AD7A] group-hover:bg-[#C7AD7A] group-hover:text-[#080B12]'
-                    : 'border-white/15 text-white group-hover:bg-[#B9DDF7] group-hover:text-[#080B12] group-hover:border-[#B9DDF7]'
-                }">
-                  <i data-lucide="arrow-up-right" class="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-                </div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[9.5px] font-mono uppercase tracking-[0.18em] backdrop-blur-xl ${badgeClass}">
+                <span class="w-1.5 h-1.5 rounded-full ${dotClass}"></span>
+                <span>${badgeText}</span>
               </div>
             </div>
 
-            <!-- Floating Frosted Glassmorphic Blurry Text Dock -->
-            <div class="relative z-10 mt-auto rounded-2xl p-5 sm:p-7 transition-all duration-500 ${
-              isFoundation
-                ? 'glass-dock-gold group-hover:border-[#C7AD7A]/60'
-                : 'glass-dock group-hover:border-[#B9DDF7]/45'
-            }">
-              <div class="w-10 h-[2px] rounded-full mb-3.5 transition-all duration-500 group-hover:w-16 ${
+            <!-- Floating Glass Dock -->
+            <div class="relative z-10 mt-auto rounded-2xl p-6 sm:p-7 ${dockClass} transition-all duration-500">
+              <div class="w-12 h-[2px] rounded-full mb-3.5 transition-all duration-500 group-hover:w-20 ${
                 isFoundation ? 'bg-[#C7AD7A]' : 'bg-[#B9DDF7]'
               }"></div>
 
-              <div class="text-[11px] font-mono uppercase tracking-[0.2em] mb-1.5 ${
+              <div class="text-[11px] font-mono uppercase tracking-[0.22em] mb-1.5 ${
                 isFoundation ? 'text-[#C7AD7A]' : 'text-[#B9DDF7]'
               }">
                 ${pillar.subtitle}
               </div>
 
-              <h3 class="font-serif text-2xl sm:text-3xl lg:text-[34px] text-white tracking-tight leading-none mb-3">
+              <h3 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-tight mb-3">
                 ${pillar.title}
               </h3>
 
@@ -1262,18 +1248,30 @@
               </p>
 
               ${pillar.complianceNote ? `
-                <div class="p-2.5 rounded-lg bg-[#080B12]/70 border border-white/5 text-[10px] text-[#8993A3] mb-4 leading-normal">
+                <div class="p-3 rounded-xl bg-[#080B12]/80 border border-white/10 text-[10.5px] text-[#8993A3] mb-4 leading-normal">
                   ${pillar.complianceNote}
                 </div>
               ` : ''}
 
-              <div class="pt-3.5 border-t border-white/10 flex items-center justify-between text-[11px] uppercase tracking-[0.2em]">
-                <span class="${
-                  isFoundation ? 'text-[#C7AD7A] font-medium' : 'text-white group-hover:text-[#B9DDF7] font-medium transition-colors'
-                }">
-                  Enter Platform
-                </span>
-                <span class="font-mono text-[10px] text-[#8993A3]">
+              <!-- Highlights -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 mb-5">
+                ${pillar.highlights.slice(0, 4).map(h => `
+                  <div class="flex items-center gap-2 text-xs text-[#C6CBD3]">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0 ${isFoundation ? 'text-[#C7AD7A]' : 'text-[#B9DDF7]'}"></i>
+                    <span class="truncate">${h}</span>
+                  </div>
+                `).join('')}
+              </div>
+
+              <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                <button
+                  onclick="navigateTo('${pillar.id}')"
+                  class="magnetic-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs uppercase tracking-[0.16em] font-semibold cursor-pointer shadow-lg ${btnClass}"
+                >
+                  <span>${btnText}</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+                <span class="font-mono text-[10px] text-[#8993A3] tracking-wider">
                   ECHO FOREVER / ${pillar.number}
                 </span>
               </div>
@@ -1281,6 +1279,90 @@
           </div>
         `;
       }).join('');
+
+      // Tier 2: Dedicated container for the 3 future concepts in development (Pillars 03, 04, 05)
+      const futureConceptsHTML = [
+        {
+          number: '03',
+          id: 'collective',
+          title: 'ECHO COLLECTIVE',
+          subtitle: 'Membership and relationships.',
+          description: 'A future relationship and community platform in structured development, designed to connect leaders, operators, and cultural architects across disciplines.',
+          compliance: 'Curated relationship network concept in development; active membership availability or benefits are not currently advertised.',
+          statusBadge: 'IN DEVELOPMENT',
+          statusCategory: 'In Concept Development',
+          image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=85'
+        },
+        {
+          number: '04',
+          id: 'ventures',
+          title: 'ECHO VENTURES',
+          subtitle: 'Business development and strategic opportunities.',
+          description: 'A strategic opportunity and business development concept in structured development, exploring commercial alliances and enterprise co-ventures.',
+          compliance: 'Business development and strategic opportunity concept in development. (Not a fund, securities offering, or investment adviser).',
+          statusBadge: 'IN DEVELOPMENT',
+          statusCategory: 'In Concept Development',
+          image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85'
+        },
+        {
+          number: '05',
+          id: 'journal',
+          title: 'ECHO JOURNAL',
+          subtitle: 'Media, culture, storytelling, and editorial.',
+          description: 'An editorial capability in development, established to document the ideas, leadership philosophies, cultural dialogues, and commercial shifts shaping tomorrow’s economy.',
+          compliance: 'Institutional editorial capability in development with zero placeholder or speculative articles. Dispatches commence alongside upcoming programming cycles.',
+          statusBadge: 'IN DEVELOPMENT',
+          statusCategory: 'In Editorial Development',
+          image: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=85'
+        }
+      ].map((concept, idx) => `
+        <div
+          data-aos="fade-up"
+          style="transition-delay: ${idx * 90}ms"
+          class="rounded-2xl p-6 sm:p-7 glass-panel border border-[#C6CBD3]/15 flex flex-col justify-between bg-[#080B12]/80 hover:border-white/25 transition-all"
+        >
+          <div>
+            <div class="relative h-40 -mx-6 -mt-6 sm:-mx-7 sm:-mt-7 mb-5 overflow-hidden rounded-t-2xl">
+              <img src="${concept.image}" alt="${concept.title}" class="w-full h-full object-cover brightness-70" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#080B12] via-[#080B12]/40 to-transparent"></div>
+              <div class="absolute top-3.5 left-3.5">
+                <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#080B12]/85 text-white border border-white/15">
+                  PILLAR ${concept.number}
+                </span>
+              </div>
+              <div class="absolute top-3.5 right-3.5">
+                <span class="px-2.5 py-1 rounded-full text-[9px] uppercase tracking-[0.16em] bg-[#080B12]/85 text-[#8993A3] border border-white/10 font-semibold font-mono">
+                  ${concept.statusBadge}
+                </span>
+              </div>
+            </div>
+
+            <h4 class="font-serif text-xl sm:text-2xl text-white tracking-tight mb-1">
+              ${concept.title}
+            </h4>
+
+            <div class="text-xs font-mono uppercase tracking-[0.16em] text-[#B9DDF7]/80 mb-3">
+              ${concept.subtitle}
+            </div>
+
+            <p class="text-xs sm:text-sm text-[#C6CBD3] leading-relaxed mb-4">
+              ${concept.description}
+            </p>
+
+            <div class="p-3 rounded-xl bg-[#101827]/60 border border-white/5 text-[10.5px] text-[#8993A3] leading-relaxed italic">
+              ${concept.compliance}
+            </div>
+          </div>
+
+          <div class="pt-5 mt-6 border-t border-white/5 flex items-center justify-between text-[10.5px] font-mono text-[#8993A3]">
+            <span class="inline-flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#8993A3]/70"></span>
+              <span>${concept.statusCategory}</span>
+            </span>
+            <span>ECHO FOREVER / ${concept.number}</span>
+          </div>
+        </div>
+      `).join('');
 
       const approachHTML = [
         {
@@ -1698,8 +1780,36 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
-              ${bentoCardsHTML}
+            <!-- TIER 1: INITIAL OPERATING FOCUS & DEVELOPMENT FOCUS (Echo Experiences & Echo Foundation) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              ${primaryPillarsHTML}
+            </div>
+
+            <!-- TIER 2: THE FUTURE OF THE ECHO ECOSYSTEM CONTAINER -->
+            <div data-aos="fade-up" class="mt-12 lg:mt-16 rounded-3xl glass-panel p-6 sm:p-8 lg:p-12 border border-[#C6CBD3]/15 bg-gradient-to-b from-[#101827]/70 to-[#080B12]/90 shadow-2xl relative overflow-hidden">
+              <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#C6CBD3]/15">
+                <div class="space-y-2">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-[0.22em] text-[#8993A3]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#8993A3]"></span>
+                    <span>STRATEGIC HORIZON • PILLARS 03–05</span>
+                  </div>
+                  <h3 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight">
+                    THE FUTURE OF THE ECHO ECOSYSTEM
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[#8993A3] max-w-2xl leading-relaxed">
+                    These long-term concepts demonstrate the company's strategic vision and multi-platform architecture without overstating current operations.
+                  </p>
+                </div>
+                <div class="shrink-0">
+                  <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-[0.18em] bg-white/5 text-[#8993A3] border border-white/10">
+                    <span>PHASED ACTIVATION</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
+                ${futureConceptsHTML}
+              </div>
             </div>
 
             <!-- Inter-Section Scroll Bridge -->
@@ -2282,22 +2392,23 @@
 
     // --- VIEW 3: OUR ECOSYSTEM ---
     function getEcosystemHTML() {
-      const listHTML = ECOSYSTEM_PILLARS.map((pillar, idx) => {
+      const primaryPillars = ECOSYSTEM_PILLARS.slice(0, 2);
+
+      const primaryListHTML = primaryPillars.map((pillar, idx) => {
         const isFoundation = pillar.id === 'foundation';
         const isExperiences = pillar.id === 'experiences';
-        const isLaunch = isExperiences || isFoundation;
 
         return `
           <div
             data-aos="${idx % 2 === 0 ? 'fade-right' : 'fade-left'}"
             class="rounded-3xl overflow-hidden border transition-all ${
-              isFoundation ? 'glass-panel-gold border-[#C7AD7A]/35' : 'glass-panel border-[#C6CBD3]/15'
+              isFoundation ? 'glass-panel-gold border-[#C7AD7A]/35 shadow-[0_20px_50px_rgba(199,173,122,0.1)]' : 'glass-panel border-[#B9DDF7]/35 shadow-[0_20px_50px_rgba(185,221,247,0.1)]'
             }"
           >
             <div class="grid grid-cols-1 lg:grid-cols-12">
-              <div class="lg:col-span-5 relative min-h-[280px]">
+              <div class="lg:col-span-5 relative min-h-[300px] lg:min-h-full">
                 <img src="${pillar.image}" alt="${pillar.title}" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#080B12]/90 hidden lg:block"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#080B12]/40 to-[#080B12]/90 hidden lg:block"></div>
                 <div class="absolute top-6 left-6 px-3.5 py-1.5 rounded-full bg-[#080B12]/80 border border-white/15 text-xs font-mono text-[#B9DDF7]">
                   PILLAR ${pillar.number}
                 </div>
@@ -2312,14 +2423,13 @@
                       ${pillar.number} • ${pillar.category}
                     </span>
                     <span class="px-2.5 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider ${
-                      isLaunch
-                        ? (isFoundation ? 'bg-[#C7AD7A]/15 text-[#C7AD7A] border border-[#C7AD7A]/30' : 'bg-[#B9DDF7]/15 text-[#B9DDF7] border border-[#B9DDF7]/30')
-                        : 'bg-white/5 text-[#8993A3] border border-white/10'
+                      isFoundation ? 'bg-[#C7AD7A]/15 text-[#C7AD7A] border border-[#C7AD7A]/30' : 'bg-[#B9DDF7]/15 text-[#B9DDF7] border border-[#B9DDF7]/30'
                     }">
                       ${pillar.statusTag}
                     </span>
                   </div>
                   <h2 class="font-serif text-3xl sm:text-4xl text-white">${pillar.title}</h2>
+                  <div class="text-xs font-mono uppercase tracking-[0.18em] ${isFoundation ? 'text-[#C7AD7A]' : 'text-[#B9DDF7]'}">${pillar.subtitle}</div>
                   <p class="text-sm sm:text-base text-[#C6CBD3] leading-relaxed">${pillar.longDescription}</p>
 
                   ${pillar.complianceNote ? `
@@ -2339,7 +2449,7 @@
                 </div>
 
                 <div class="pt-4 border-t border-[#C6CBD3]/15 flex flex-wrap items-center justify-between gap-4">
-                  <span class="text-xs italic text-[#8993A3]">${pillar.subtitle}</span>
+                  <span class="text-xs italic text-[#8993A3]">ECHO FOREVER / ${pillar.number}</span>
                   <button
                     onclick="navigateTo('${pillar.id}')"
                     class="magnetic-btn inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs uppercase tracking-[0.16em] font-medium cursor-pointer ${
@@ -2358,9 +2468,115 @@
         `;
       }).join('');
 
+      const futureSectionHTML = `
+        <div data-aos="fade-up" class="rounded-3xl glass-panel p-8 sm:p-10 lg:p-12 border border-[#C6CBD3]/15 bg-gradient-to-b from-[#101827]/70 to-[#080B12]/90 shadow-2xl relative overflow-hidden">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#C6CBD3]/15">
+            <div class="space-y-2">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-[0.22em] text-[#8993A3]">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#8993A3]"></span>
+                <span>STRATEGIC HORIZON • PILLARS 03–05</span>
+              </div>
+              <h2 class="font-serif text-3xl sm:text-4xl text-white tracking-tight">
+                THE FUTURE OF THE ECHO ECOSYSTEM
+              </h2>
+              <p class="text-sm sm:text-base text-[#8993A3] max-w-2xl leading-relaxed">
+                These long-term concepts demonstrate the company's strategic vision and multi-platform architecture without overstating current operations.
+              </p>
+            </div>
+            <div class="shrink-0">
+              <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-[0.18em] bg-white/5 text-[#8993A3] border border-white/10">
+                <span>PHASED ACTIVATION</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-8">
+            ${[
+              {
+                number: '03',
+                title: 'ECHO COLLECTIVE',
+                subtitle: 'Membership and relationships.',
+                desc: 'A future relationship and community platform in structured development, designed to connect leaders, operators, and cultural architects across disciplines.',
+                guardrail: 'Curated relationship network concept in development; active membership availability or benefits are not currently advertised.',
+                statusBadge: 'IN DEVELOPMENT',
+                category: 'In Concept Development',
+                image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=85'
+              },
+              {
+                number: '04',
+                title: 'ECHO VENTURES',
+                subtitle: 'Business development and strategic opportunities.',
+                desc: 'A strategic opportunity and business development concept in structured development, exploring commercial alliances and enterprise co-ventures.',
+                guardrail: 'Business development and strategic opportunity concept in development. (Not a fund, securities offering, or investment adviser).',
+                statusBadge: 'IN DEVELOPMENT',
+                category: 'In Concept Development',
+                image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85'
+              },
+              {
+                number: '05',
+                title: 'ECHO JOURNAL',
+                subtitle: 'Media, culture, storytelling, and editorial.',
+                desc: 'An editorial capability in development, established to document the ideas, leadership philosophies, cultural dialogues, and commercial shifts shaping tomorrow’s economy.',
+                guardrail: 'Institutional editorial capability in development with zero placeholder or speculative articles. Dispatches commence alongside upcoming programming cycles.',
+                statusBadge: 'IN DEVELOPMENT',
+                category: 'In Editorial Development',
+                image: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=85'
+              }
+            ].map((concept, i) => `
+              <div
+                data-aos="fade-up"
+                style="transition-delay: ${i * 90}ms"
+                class="rounded-2xl p-6 sm:p-7 glass-panel border border-[#C6CBD3]/15 flex flex-col justify-between bg-[#080B12]/80 hover:border-white/25 transition-all"
+              >
+                <div>
+                  <div class="relative h-44 -mx-6 -mt-6 sm:-mx-7 sm:-mt-7 mb-6 overflow-hidden rounded-t-2xl">
+                    <img src="${concept.image}" alt="${concept.title}" class="w-full h-full object-cover brightness-70" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#080B12] via-[#080B12]/40 to-transparent"></div>
+                    <div class="absolute top-4 left-4">
+                      <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#080B12]/85 text-white border border-white/15">
+                        PILLAR ${concept.number}
+                      </span>
+                    </div>
+                    <div class="absolute top-4 right-4">
+                      <span class="text-[9px] font-mono uppercase tracking-[0.16em] px-2.5 py-1 rounded-full bg-[#080B12]/85 text-[#8993A3] border border-white/10 font-semibold font-mono">
+                        ${concept.statusBadge}
+                      </span>
+                    </div>
+                  </div>
+
+                  <h3 class="font-serif text-2xl text-white tracking-tight mb-1.5">
+                    ${concept.title}
+                  </h3>
+
+                  <div class="text-xs font-mono uppercase tracking-[0.16em] text-[#B9DDF7]/80 mb-3">
+                    ${concept.subtitle}
+                  </div>
+
+                  <p class="text-xs sm:text-sm text-[#C6CBD3] leading-relaxed mb-4">
+                    ${concept.desc}
+                  </p>
+
+                  <div class="p-3 rounded-xl bg-[#101827]/60 border border-white/5 text-[10.5px] text-[#8993A3] leading-relaxed italic">
+                    ${concept.guardrail}
+                  </div>
+                </div>
+
+                <div class="pt-5 mt-6 border-t border-white/5 flex items-center justify-between text-[10.5px] font-mono text-[#8993A3]">
+                  <span class="inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#8993A3]"></span>
+                    <span>${concept.category}</span>
+                  </span>
+                  <span>ECHO FOREVER / ${concept.number}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
       return `
         <div class="py-16 lg:py-24">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 lg:space-y-20">
             <div data-aos="fade-down" class="max-w-4xl space-y-6">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs uppercase tracking-[0.2em] text-[#B9DDF7]">
                 <span>HOUSE OF BRANDS ARCHITECTURE</span>
@@ -2369,12 +2585,17 @@
                 Five Interconnected Platforms. One Institutional Standard.
               </h1>
               <p class="text-lg text-[#C6CBD3] leading-relaxed">
-                Explore how each division of Echo Forever LLC contributes to our long-term mission—from our initial operational engine in Echo Experiences and Echo Foundation to our expanding collective, venture, and editorial pillars.
+                Explore how each division of Echo Forever LLC contributes to our long-term mission—from our initial operational focus in Echo Experiences and community-impact focus in Echo Foundation to our expanding collective, venture, and editorial pillars.
               </p>
             </div>
+
+            <!-- TIER 1: INITIAL OPERATING FOCUS & DEVELOPMENT FOCUS (Echo Experiences & Echo Foundation) -->
             <div class="space-y-8">
-              ${listHTML}
+              ${primaryListHTML}
             </div>
+
+            <!-- TIER 2: THE FUTURE OF THE ECHO ECOSYSTEM CONTAINER -->
+            ${futureSectionHTML}
           </div>
         </div>
       `;
@@ -3624,7 +3845,7 @@
           return `
             <button
               onclick="navigateTo('${item.id}')"
-              class="relative px-2.5 2xl:px-3.5 py-1.5 2xl:py-2 rounded-full text-[11px] 2xl:text-xs tracking-[0.08em] 2xl:tracking-[0.12em] uppercase transition-all cursor-pointer whitespace-nowrap ${
+              class="relative px-2 2xl:px-3 py-1.5 2xl:py-2 rounded-full text-[10.5px] 2xl:text-xs tracking-[0.06em] 2xl:tracking-[0.1em] uppercase transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                 isActive
                   ? isFound
                     ? 'text-[#C7AD7A] bg-[#C7AD7A]/10 font-medium'
@@ -3632,7 +3853,8 @@
                   : 'text-[#C6CBD3] hover:text-white hover:bg-[#171D29]/60'
               }"
             >
-              ${item.label}
+              <span class="hidden 2xl:inline">${item.label}</span>
+              <span class="inline 2xl:hidden">${item.shortLabel || item.label}</span>
               ${isActive ? `<span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-4 h-[2px] rounded-full ${isFound ? 'bg-[#C7AD7A]' : 'bg-[#B9DDF7]'}"></span>` : ''}
             </button>
           `;
@@ -3642,18 +3864,8 @@
       // Mobile Nav
       const mobileList = document.getElementById('mobile-nav-list');
       if (mobileList) {
-        const homeActive = state.activePage === 'home';
         mobileList.innerHTML = `
           <div class="text-[11px] uppercase tracking-[0.24em] text-[#8993A3] mb-4">Institutional Directory</div>
-          <button
-            onclick="navigateTo('home')"
-            class="w-full flex items-center justify-between py-3.5 px-4 rounded-xl text-left border transition-all cursor-pointer ${
-              homeActive ? 'border-[#B9DDF7]/40 bg-[#101827] text-[#B9DDF7]' : 'border-transparent text-white hover:bg-[#101827]/60'
-            }"
-          >
-            <span class="font-serif text-2xl">Home Gateway</span>
-            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </button>
           ${NAV_ITEMS.map(item => {
             const isActive = state.activePage === item.id;
             const isFound = item.id === 'foundation';
